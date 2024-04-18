@@ -1,0 +1,1222 @@
+---
+title: "MS IV"
+author: "Sophia"
+date: "2024-03-18"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    toc: true
+    toc_depth: 3
+---
+# METHODS 
+
+## Sample Alignment: 
+
+### STEP 1: Downloading all FASTQ Files
+Note: included 'fastq-dump' options '--readids' '--split-3' as my samples are paired-end reads. 
+```{bash fastq download, eval=FALSE}
+srun -n1 --pty --partition=angsd_class --mem=60G bash -i
+mamba activate angsd 
+
+cd /athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/FASTQ_files
+
+samples=("SRR21106059" "SRR21106060" "SRR21106063" "SRR21106064")
+
+for sample in "${samples[@]}"; do
+    prefetch "$sample"
+    srapath "$sample"
+    fastq-dump --readids --split-3 "/athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/FASTQ_files/$sample/$sample.sra"
+done
+
+ls 
+```
+
+```{bash check output step 1, eval=FALSE}
+SRR21106059	     SRR21106060_1.fastq  SRR21106063_2.fastq
+SRR21106059_1.fastq  SRR21106060_2.fastq  SRR21106064
+SRR21106059_2.fastq  SRR21106063	  SRR21106064_1.fastq
+SRR21106060	     SRR21106063_1.fastq  SRR21106064_2.fastq
+```
+
+
+|  **Sample** | **Condition** | **Replicate** |
+|:-----------:|:-------------:|:-------------:|
+| SRR21106059 |    Vehicle    |       2       |
+| SRR21106060 |    Vehicle    |       1       |
+| SRR21106063 |   Irinotecan  |       2       |
+| SRR21106064 |   Irinotecan  |       1       |
+
+
+### STEP 2: Renaming FASTQ files
+```{bash rename, eval=FALSE}
+mv SRR21106059 Vehicle_Rep_2
+mv SRR21106059_1.fastq Vehicle_Rep_2_1.fastq
+mv SRR21106059_2.fastq Vehicle_Rep_2_2.fastq
+
+mv SRR21106060 Vehicle_Rep_1
+mv SRR21106060_1.fastq Vehicle_Rep_1_1.fastq
+mv SRR21106060_2.fastq Vehicle_Rep_1_2.fastq
+
+mv SRR21106063 Irinotecan_Rep_2
+mv SRR21106063_1.fastq Irinotecan_Rep_2_1.fastq
+mv SRR21106063_2.fastq Irinotecan_Rep_2_2.fastq
+
+mv SRR21106064 Irinotecan_Rep_1
+mv SRR21106064_1.fastq Irinotecan_Rep_1_1.fastq
+mv SRR21106064_2.fastq Irinotecan_Rep_1_2.fastq
+
+#Probably could have done this in a more streamlined manner but wanted to be very careful that I did this step correctly. 
+```
+
+### STEP 3: Performing FastQC on FASTQ files 
+```{bash fastQC initial, eval=FALSE}
+for file in *.fastq; do
+fastqc "$file" --extract
+done
+
+ls
+
+Irinotecan_Rep_1                Vehicle_Rep_1
+Irinotecan_Rep_1_1.fastq        Vehicle_Rep_1_1.fastq
+Irinotecan_Rep_1_1_fastqc       Vehicle_Rep_1_1_fastqc
+Irinotecan_Rep_1_1_fastqc.html  Vehicle_Rep_1_1_fastqc.html
+Irinotecan_Rep_1_1_fastqc.zip   Vehicle_Rep_1_1_fastqc.zip
+Irinotecan_Rep_1_2.fastq        Vehicle_Rep_1_2.fastq
+Irinotecan_Rep_1_2_fastqc       Vehicle_Rep_1_2_fastqc
+Irinotecan_Rep_1_2_fastqc.html  Vehicle_Rep_1_2_fastqc.html
+Irinotecan_Rep_1_2_fastqc.zip   Vehicle_Rep_1_2_fastqc.zip
+Irinotecan_Rep_2                Vehicle_Rep_2
+Irinotecan_Rep_2_1.fastq        Vehicle_Rep_2_1.fastq
+Irinotecan_Rep_2_1_fastqc       Vehicle_Rep_2_1_fastqc
+Irinotecan_Rep_2_1_fastqc.html  Vehicle_Rep_2_1_fastqc.html
+Irinotecan_Rep_2_1_fastqc.zip   Vehicle_Rep_2_1_fastqc.zip
+Irinotecan_Rep_2_2.fastq        Vehicle_Rep_2_2.fastq
+Irinotecan_Rep_2_2_fastqc       Vehicle_Rep_2_2_fastqc
+Irinotecan_Rep_2_2_fastqc.html  Vehicle_Rep_2_2_fastqc.html
+Irinotecan_Rep_2_2_fastqc.zip   Vehicle_Rep_2_2_fastqc.zip
+```
+
+### STEP 4: Assesing sequencing data quality
+```{bash fastQC view, eval=FALSE}
+exit 
+
+scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/FASTQ_files/Irinotecan_Rep_1_1_fastqc.html ~/Desktop/angsd/FastQC/
+
+scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/FASTQ_files/Irinotecan_Rep_1_2_fastqc.html ~/Desktop/angsd/FastQC/
+
+scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/FASTQ_files/Irinotecan_Rep_2_1_fastqc.html ~/Desktop/angsd/FastQC/
+
+scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/FASTQ_files/Irinotecan_Rep_2_2_fastqc.html ~/Desktop/angsd/FastQC/
+
+scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/FASTQ_files/Vehicle_Rep_1_1_fastqc.html ~/Desktop/angsd/FastQC/
+
+scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/FASTQ_files/Vehicle_Rep_1_2_fastqc.html ~/Desktop/angsd/FastQC/
+
+scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/FASTQ_files/Vehicle_Rep_2_1_fastqc.html ~/Desktop/angsd/FastQC/
+
+scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/FASTQ_files/Vehicle_Rep_2_2_fastqc.html ~/Desktop/angsd/FastQC/
+```
+
+#### FastQC results demonstrated poor quality in Sequence Duplication Levels and Per base sequence content.
+Sequence Duplication Levels: High sequence duplication levels suggest potential PCR artifacts or over-amplification during consider collapsing identical reads into unique counts during quantification to account for PCR duplicates. 
+
+Per Base Sequence Content: Deviations in per base sequence content may indicate biases in the sequencing process.
+
+A few of the samples also had a yellow "!" warning on per tile sequence quality. This warning suggests that there may be inconsistencies or abnormalities in the quality scores of the sequencing reads obtained from different areas of the flow cell. This could be indicative of technical issues during the sequencing process or variations in sequencing quality across different regions of the flow cell.
+
+I decided to perform Trim Galore based on these results of poor quality in the Sequence Duplication Levels and Per base sequence content. 
+
+### STEP 5: Performing Trim Galore
+The output from TrimGalore/cutadapt will give me a summary of the parameters that were used to do the trimming, including the adapter sequence itself, and tells me how many reads were processed and how many bases were trimmed off.
+```{bash trim galore, eval=FALSE}
+ssh -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu
+mamba activate trim-galore
+
+cd /athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/
+mkdir TrimGalore
+
+#Trim Galore Irintoecan Rep 1
+trim_galore --paired --stringency 2 --output_dir /athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/FASTQ_files/TrimGalore/ \
+    Irinotecan_Rep_1_1.fastq  Irinotecan_Rep_1_2.fastq 
+    
+#Trim Galore Irintoecan Rep 2 
+trim_galore --paired --stringency 2 --output_dir /athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/FASTQ_files/TrimGalore/ \
+    Irinotecan_Rep_2_1.fastq  Irinotecan_Rep_2_2.fastq 
+
+#Trim Galore Vehicle Rep 1
+trim_galore --paired --stringency 2 --output_dir /athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/FASTQ_files/TrimGalore/ \
+    Vehicle_Rep_1_1.fastq Vehicle_Rep_1_2.fastq
+
+#Trim Galore Vehicle Rep 2
+trim_galore --paired --stringency 2 --output_dir /athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/FASTQ_files/TrimGalore/ \
+    Vehicle_Rep_2_1.fastq Vehicle_Rep_2_2.fastq
+```
+
+### STEP 6: Performing FastQC on trimmed files
+```{bash fastqc again, eval=FALSE}
+mamba activate angsd
+cd /athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/TrimGalore
+
+for file in *.fq; do
+fastqc "$file" --extract
+done
+```
+
+### STEP 7: Assessing sequencing data quality of trimmed files 
+```{bash fastQC view again, eval=FALSE}
+exit 
+
+for file in *fastqc.html; do
+scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/TrimGalore/"$file" ~/Desktop/angsd/FastQC/
+done
+```
+
+### STEP 8: Obtaining reference genome and annotation files 
+```{bash Q1Step1,eval = FALSE}
+cd /athena/angsd/scratch/sah4030/angsd_homework/Project/
+#Download Reference Genome
+wget https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.2bit
+wget https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.chrom.sizes
+wget https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz
+wget https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.masked.gz
+
+#Downlaod annotation file 
+wget https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/genes/hg38.knownGene.gtf.gz
+
+#KnownGene track: This track provides the current version of GENCODE gene transcript models. GENCODE is a project that aims to annotate all evidence-based gene features in the human genome. The knownGene track is based on GENCODE annotations and is a widely used resource for gene annotations.
+cd /athena/angsd/scratch/sah4030/angsd_homework/Project/
+gunzip hg38.knownGene.gtf.gz
+gunzip hg38.fa.gz
+```
+
+### STEP 9: Preparing for index generation  
+I created the directory, "hg38_STARindex" in which I will stored the index I create.  
+```{bash Q2Step1,eval = FALSE}
+cd /athena/angsd/scratch/sah4030/angsd_homework/Project/
+mkdir hg38_STARindex #directory where I will store the index (--genomeDir)
+
+ls
+alignReads   hg38.chrom.sizes    hg38_STARindex       _STARtmp
+FASTQ_2.0    hg38.fa             Index                T2TGenome
+FASTQ_files  hg38.fa.masked.gz   index_generation.sh
+hg38.2bit    hg38.knownGene.gtf  ReferenceGenome
+```
+
+### STEP 10: Script to generate index 
+```{bash script index_gen, eval=FALSE}
+#!/bin/bash -i
+#SBATCH --partition=angsd_class
+#SBATCH --nodes=1
+#SBATCH --ntasks=4
+#SBATCH --cpus-per-task=4
+#SBATCH --job-name=indexgen
+#SBATCH --time=06:00:00
+#SBATCH --mem=60G
+
+mamba activate angsd
+
+STAR \
+--runMode genomeGenerate \
+--runThreadN 4 \
+--genomeDir hg38_STARindex \
+--genomeFastaFiles hg38.fa \
+--sjdbGTFfile hg38.knownGene.gtf
+
+mamba deactivate
+exit
+```
+
+### STEP 11: Sbatch run of script to generate index
+```{bash run script, eval=FALSE}
+chmod +x index_generation.sh
+sbatch index_generation.sh
+```
+
+### STEP 12: Preparing for alignment
+```{bash prepare_alignment, eval=FALSE}
+cd /athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV
+mkdir alignReads_MSIV
+```
+
+### STEP 13: Script for alignment of all samples
+```{bash run align script, eval=FALSE}
+#!/bin/bash -i
+#SBATCH --partition=angsd_class
+#SBATCH --nodes=1
+#SBATCH --ntasks=4
+#SBATCH --cpus-per-task=4
+#SBATCH --job-name=align
+#SBATCH --time=06:00:00
+#SBATCH --mem=60G
+
+mamba activate angsd
+
+for file_prefix in Irinotecan_Rep_1 Irinotecan_Rep_2 Vehicle_Rep_1 Vehicle_Rep_2
+do
+    STAR \
+    --runMode alignReads \
+    --runThreadN 4 \
+    --genomeDir /athena/angsd/scratch/sah4030/angsd_homework/Project/hg38_STARindex \
+    --readFilesIn "/athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/TrimGalore/${file_prefix}_1_val_1.fq" "/athena/angsd/scratch/sah4030/angsd_homework/Project/MSIV/TrimGalore/${file_prefix}_2_val_2.fq" \
+    --outFileNamePrefix "/athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/${file_prefix}." \
+    --outSAMtype BAM SortedByCoordinate \
+    --outFilterMultimapNmax 1 \
+    --alignIntronMin 20 \
+    --alignIntronMax 200000 \
+    --outSAMattributes NH HI NM MD AS nM
+done
+
+mamba deactivate
+exit
+```
+
+#### PARAMETERS I CHOSE AND WHY: 
+--outFilterMultimapNmax 1: This parameter specifies the max number of multiple alignments allowed for a read.By setting this parameter to 1 I am ensuring that each read is assigned to only one genomic location, even if it aligns equally well to multiple locations. 
+
+--alignIntronMin 20: This parameter specifies the minimum allowed length of an intron. It sets the smallest size of an intron that STAR will attempt to align. Setting this value too low might result in STAR failing to detect very short introns, while setting it too high might lead to increased computational time and memory usage.The average intron length in humans is around 5-10 kb, although this number greatly varies, with introns ranging from a few hundred base pairs to tens of thousands of base pairs.I decided to set it to around 20 base pairs to allow for the detection of relatively short introns
+
+--alignIntronMax 200000: This parameter specifies the maximum allowed length of an intron. It sets the upper limit for the size of introns that STAR will attempt to align. Setting this value too low might result in missing alignments for longer introns, while setting it too high might lead to increased computational time and memory usage as STAR tries to align very long introns. I decided to set it to 200,000 base pairs to accommodate the longest expected introns in the human genome.
+
+--outSAMattributes NH HI NM MD AS nM: Specifies which information to include in the optional SAM attribute. 
+
+NH: Number of reported alignments that contain the query in the current record. This field is useful for detecting multimapping reads.
+HI: SAM attribute representing the hit index (alignment sequence position) of the alignment. It's used to distinguish alignments that originate from the same query sequence but map to different locations in the reference genome.
+NM: Edit distance (number of mismatches) between the aligned sequence and the reference sequence. This field provides information about the number of differences between the aligned read and the reference genome.
+MD: String representation of the alignment details, indicating the differences between the read and the reference sequence (mismatches, insertions, deletions).
+AS: Alignment score, which represents the quality of the alignment. It's a numeric value calculated by the aligner based on various factors such as match/mismatch scores, gap penalties, etc.
+nM: SAM attribute indicating the edit distance normalized by the length of the alignment. It's similar to NM, but the edit distance is normalized by the alignment length, providing a measure of the mismatch rate.
+
+Note: 
+"_val_1.fq" refers to the validated or trimmed reads from the first end of the paired reads
+
+"_val_2.fq" refers to the validated or trimmed reads from the second end of the paired reads
+
+### STEP 14: Sbatch run of script to complete alignments 
+```{bash run alignment script, eval=FALSE}
+chmod +x alignment.sh
+sbatch alignment.sh
+```
+
+## Preliminary Analysis and Quality Control of Alignment
+
+### STEP 1: Utilizing SAMTOOLS
+```{bash Q7Step1,eval = FALSE}
+mamba activate angsd
+
+for file in *.Aligned.sortedByCoord.out.bam; do
+samtools view -H $file
+
+#Generating an index file, which will allow for rapid retrieval of alignments by genomic coordinates. This is essential for many downstream analysis tools.
+samtools index $file
+
+#Generates various statistics about the alignments stored in the BAM file and saves these statistics to a file named Irinotecan_Rep1.flagstats.
+samtools flagstat $file > $file.flagstats
+
+#Generate statistics
+samtools stats $file > $file.stats
+
+# How many uniquely mapped reads were there?
+echo "Number of uniquely mapped reads: " $(samtools view -c -q10 $file)
+
+done
+
+```
+
+```{number of uniquely mapped output, eval=FALSE}
+# Number of uniquely mapped reads:  74113640
+# Number of uniquely mapped reads:  59765652
+# Number of uniquely mapped reads:  61209305
+# Number of uniquely mapped reads:  77424890
+```
+
+### STEP 2: Performing BAMQC
+```{bash bamqc, eval=FALSE}
+mamba activate qualimap
+srun -n1 --pty --partition=angsd_class --mem=40G bash -i
+
+for file in *.Aligned.sortedByCoord.out.bam; do
+    qualimap bamqc -bam $file -outdir . -outformat PDF
+done
+```
+
+### STEP 3: Performing Multiqc
+```{bash multiqc, eval=FALSE}
+cd /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/
+mamba activate multiqc
+multiqc -n MSIV.multiqc .
+
+exit 
+cd /Users/sophiahoward/Desktop/angsd
+
+scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/MSIV.multiqc.html ~/Desktop/angsd
+
+```
+
+![](/Users/sophiahoward/Desktop/angsd/General Statistics Multiqc MSIV.png)
+![](/Users/sophiahoward/Desktop/angsd/samtools_alignment_plot.png)
+![](/Users/sophiahoward/Desktop/angsd/Alignment Metrics MSIV.png)
+![](/Users/sophiahoward/Desktop/angsd/Samtools Flagstat.png)
+![](/Users/sophiahoward/Desktop/angsd/STAR Alignment Scores MSIV.png)
+
+
+### STEP 4: Performing alignment QC with RSeQC: Read distribution
+MANE (hg38_MANE.bed.gz)
+```{bash read distribution, eval = FALSE}
+ssh -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu
+
+cd /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/
+
+#Obtain bed file for hc38 MANE
+wget https://sourceforge.net/projects/rseqc/files/BED/Human_Homo_sapiens/hg38_MANE.bed.gz
+gunzip hg38_MANE.bed.gz
+
+#Activated rseqc environment 
+mamba activate rseqc
+
+#Performed rseqc on all samples 
+read_distribution.py -i /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Irinotecan_Rep_1.Aligned.sortedByCoord.out.bam -r hg38_MANE.bed > Irinotecan_Rep_1_rseqc_read_distribution.out
+
+read_distribution.py -i /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Irinotecan_Rep_2.Aligned.sortedByCoord.out.bam -r hg38_MANE.bed > Irinotecan_Rep_2_rseqc_read_distribution.out
+
+read_distribution.py -i /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Vehicle_Rep_1.Aligned.sortedByCoord.out.bam -r hg38_MANE.bed > Vehicle_Rep_1_rseqc_read_distribution.out
+
+read_distribution.py -i /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Vehicle_Rep_2.Aligned.sortedByCoord.out.bam -r hg38_MANE.bed > Vehicle_Rep_2_rseqc_read_distribution.out
+
+#head -n10 Irinotecan_Rep_1_rseqc_read_distribution.out
+#head -n10 Irinotecan_Rep_2_rseqc_read_distribution.out
+#head -n10 Vehicle_Rep_1_rseqc_read_distribution.out
+#head -n10 Vehicle_Rep_2_rseqc_read_distribution.out
+```
+
+### STEP 5: Performing alignment QC with RSeQC: Gene body coverage
+For the gene body analysis, using the housekeeping genes set (hg38.HouseKeepingGenes.bed.gz), as this will give representative analysis without taking too long to run.
+```{bash genebody coverage, eval = FALSE}
+
+#Obtain bed file for hc38 
+wget https://sourceforge.net/projects/rseqc/files/BED/Human_Homo_sapiens/hg38.HouseKeepingGenes.bed.gz
+
+gunzip hg38.HouseKeepingGenes.bed.gz
+
+#Performed geneBody coverage on all samples
+geneBody_coverage.py -i /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Irinotecan_Rep_1.Aligned.sortedByCoord.out.bam \
+-r hg38.HouseKeepingGenes.bed \
+-o Irinotecan_Rep_1_geneBody_coverage.out
+
+geneBody_coverage.py -i /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Irinotecan_Rep_2.Aligned.sortedByCoord.out.bam \
+-r hg38.HouseKeepingGenes.bed \
+-o Irinotecan_Rep_2_geneBody_coverage.out
+
+geneBody_coverage.py -i /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Vehicle_Rep_1.Aligned.sortedByCoord.out.bam \
+-r hg38.HouseKeepingGenes.bed \
+-o Vehicle_Rep_1_geneBody_coverage.out
+
+geneBody_coverage.py -i /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Vehicle_Rep_2.Aligned.sortedByCoord.out.bam \
+-r hg38.HouseKeepingGenes.bed \
+-o Vehicle_Rep_2_geneBody_coverage.out
+```
+
+### STEP 6: Performing Multiqc for read distribution and gene body coverage
+```{bash multiqc 2, eval = FALSE}
+mamba activate multiqc
+multiqc .
+
+exit
+
+scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/multiqc_report.html ~/Desktop/angsd/MSIV
+```
+
+![](/Users/sophiahoward/Desktop/angsd/MSIV/rseqc_read_distribution_plot.png)
+
+![](/Users/sophiahoward/Desktop/angsd/MSIV/rseqc_gene_body_coverage_plot.png)
+
+### STEP 7: Performing alignment QC with QoRTs (work in progress): 
+I performed the following in hopes of determining strandedness: 
+```{bash qorts, eval=FALSE}
+mamba activate qorts
+
+export _JAVA_OPTIONS="-Xmx4G"
+
+qorts QC \
+    --maxReadLength 150 \
+    /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Irinotecan_Rep_1.Aligned.sortedByCoord.out.bam \
+    /athena/angsd/scratch/sah4030/angsd_homework/Project/ReferenceGenome/hg38.knownGene.gtf \
+    /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/QC_QoRTs_Irinotecan_Rep_1
+
+qorts QC \
+    --maxReadLength 150 \
+    /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Irinotecan_Rep_2.Aligned.sortedByCoord.out.bam \
+    /athena/angsd/scratch/sah4030/angsd_homework/Project/ReferenceGenome/hg38.knownGene.gtf \
+    /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/QC_QoRTs_Irinotecan_Rep_2
+    
+qorts QC \
+    --maxReadLength 150 \
+    /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Vehicle_Rep_1.Aligned.sortedByCoord.out.bam \
+    /athena/angsd/scratch/sah4030/angsd_homework/Project/ReferenceGenome/hg38.knownGene.gtf \
+    /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/QC_QoRTs_Vehicle_Rep_1
+    
+    
+qorts QC \
+    --maxReadLength 150 \
+    /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Vehicle_Rep_2.Aligned.sortedByCoord.out.bam \
+    /athena/angsd/scratch/sah4030/angsd_homework/Project/ReferenceGenome/hg38.knownGene.gtf \
+    /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/QC_QoRTs_Vehicle_Rep_2
+
+```
+
+```{bash qorts with other file, eval=FALSE}
+mamba activate qorts
+
+export _JAVA_OPTIONS="-Xmx4G"
+
+qorts QC \
+    --maxReadLength 150 \
+    /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Irinotecan_Rep_1.Aligned.sortedByCoord.out.bam \
+    /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Homo_sapiens.GRCh38.111.gtf \
+    /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/QC_QoRTs_Irinotecan_Rep_1
+```
+
+
+## From Raw Read Counts to Relative Expression Strength Measures: Normalizing Read Counts
+
+### STEP 1: Running feature counts for paired ends reads
+```{bash feature counts again, eval=FALSE}
+srun -n1 --pty --partition=angsd_class --mem=4G bash -i
+mamba activate angsd
+
+cd /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV  
+
+featureCounts -a /athena/angsd/scratch/sah4030/angsd_homework/Project/hg38.knownGene.gtf -o Project_fc.txt -p *.Aligned.sortedByCoord.out.bam --countReadPairs
+```
+
+```{bash feature counts annotation, eval=FALSE}
+cd /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV  
+
+wget https://ftp.ensembl.org/pub/release-111/gtf/homo_sapiens/Homo_sapiens.GRCh38.111.gtf.gz
+
+gunzip Homo_sapiens.GRCh38.111.gtf.gz
+
+srun -n1 --pty --partition=angsd_class --mem=4G bash -i
+mamba activate angsd
+
+featureCounts -a /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Homo_sapiens.GRCh38.111.gtf -o Project_featureCounts.txt -p *.Aligned.sortedByCoord.out.bam --countReadPairs
+
+exit
+
+scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Project_featureCounts.txt ~/Desktop/angsd/MSIV
+```
+
+
+
+### STEP 2: Copying feature counts output file to local computer
+```{bash copying file to computer, eval=FALSE}
+exit 
+
+scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Project_fc.txt ~/Desktop/angsd/MSIV
+```
+
+
+I aligned two samples for the Irinotecan and Vehicle condition, respectively and then counted the numbers of
+reads overlapping with known genes using featureCounts.
+
+### STEP 3: Preparing libraries 
+```{r libraries step 9, eval=FALSE}
+library(ggplot2); theme_set(theme_bw(base_size = 16)) # for making plots
+library(magrittr) # for "pipe"-like coding in R
+library(DESeq2)
+```
+
+### STEP 4: Reading the featureCounts result file into R
+```{r DOWNLOAD count table, eval=FALSE}
+
+folder <- "/Users/sophiahoward/Desktop/angsd/MSIV/" # download count table!
+
+## reading in featureCounts output
+df_counts_Project <- read.table(paste0(folder, "Project_featureCounts.txt"), header = TRUE)
+
+## Display the structure of the dataframe
+str(df_counts_Project)
+```
+
+### STEP 5: Simplifying sample names
+```{r step3 back up, eval=FALSE}
+original_names_Project <- names(df_counts_Project) # keep a back-up copy of the original names
+
+# Define the pattern to remove from the column names
+pattern_to_remove <- "\\.Aligned\\.sortedByCoord\\.out\\.bam"
+
+# Remove the pattern from the column names
+new_colnames_Project <- sub(pattern_to_remove, "", original_names_Project)
+
+# Update the column names in the dataframe
+colnames(df_counts_Project) <- new_colnames_Project
+```
+
+### STEP 6: DESeq2 object setup: countData
+In principle, df_counts_Project is pretty much already in the format that I’ll need (columns = Samples, rows = genes), but I am missing row.names and the first couple of columns contain metadata information that need to be separated from the counts (i.e., gene IDs, gene lengths etc.). Adding that here: 
+```{r row names, eval=FALSE}
+## gene IDs should be stored as row.names
+row.names(df_counts_Project) <- make.names(df_counts_Project$Geneid)
+## exclude the columns without read counts (columns 1 to 6 contain additional 
+## info such as genomic coordinates) and convert to matrix
+cts_gene_sample <- as.matrix(df_counts_Project[, -c(1:6)])
+head(cts_gene_sample)
+```
+This will be the data that we will store as counts in the assays slot of the DESeq2 object. Now, we turn to the colData, the meta data containing information about the samples (= columns)
+
+### STEP 7: DESeq2 object setup: colData
+According to ?colData, this should be a data.frame, where the rows directly match the columns of the count data.
+```{r coldata, eval=FALSE}
+# let's use the info from our df_counts object
+df_coldata <- data.frame(condition = gsub("_[0-9]+", "", colnames(cts_gene_sample)), row.names = colnames(cts_gene_sample))
+#df_coldata
+str(df_coldata)
+```
+
+### STEP 8: DESeq2 object setup: Generate the DESeqDataSet
+```{r dds_Project, eval=FALSE}
+dds_Project <- DESeqDataSetFromMatrix(countData = cts_gene_sample, colData = df_coldata, design = ~ condition)
+dds_Project
+```
+Note that there is an empty rowData slot, but this wasn’t mentioned explicitly in the DESeqDataSetFromMatrix documentation. This slot is inherited from the SummarizedExperiment object and would be a reasonable place to store the information about the features (in this case genes) we measured.
+
+### STEP 9: DESeq2 object setup: Adding rowData
+```{r Adding rowData, eval=FALSE}
+df_rowdata <- df_counts_Project[,1:6] 
+rowData(dds_Project) <- df_rowdata
+
+dds_Project
+```
+
+### STEP 10: DESeq2 object setup: Accessing counts
+```{r accessing counts, eval=FALSE}
+## `assay()` is useful when multiple assays are present
+head(assay(dds_Project, "counts"))
+colSums(counts(dds_Project))
+```
+
+### STEP 11: Checking the number of reads that were sequenced for each sample ( = library sizes)
+```{r barplot colsums, eval=FALSE}
+colSums(counts(dds_Project)) %>% barplot
+```
+
+### STEP 7: Checking Dimensions of DESeq Data Set 
+```{r check dimensions for Removing Genes with no Reads, eval=FALSE}
+dim(dds_Project)
+```
+
+### STEP 8: Removing genes with no reads from DESeq Data Set
+```{r Removing Genes with no Reads, eval=FALSE}
+keep_genes <- rowSums(counts(dds_Project)) > 0 
+dds_Project <- dds_Project[keep_genes, ] 
+dim(dds_Project)
+#counts(dds_Project) %>% str
+```
+
+### STEP 9: Normalizing for sequencing depth and RNA composition differences
+Now that we have the data, we can start using DESeq2’s functions for sequencing depth normalization.
+
+The size factor is calculated as follows:
+1. For every gene, the geometric mean of counts is calculated across all samples ( = “pseudo baseline expression”).
+2. For every gene, the ratio of its counts within a specific sample to the pseudo-baseline is calculated (i.e., Sample A/pseudo baseline, Sample B/pseudo baseline).
+3. For every sample (columns!), the median of the ratios from step 2 is calculated. This is the size factor.
+
+The underlying code:
+```{r Normalizing for sequencing depth and RNA composition differences, eval=FALSE}
+## define a function to calculate the geometric mean
+gm_mean <- function(x, na.rm=TRUE){ exp(sum(log(x[x > 0]), na.rm=na.rm) / length(x)) }
+
+## calculate the geometric mean for each gene using that function
+## note the use of apply(), which we instruct to apply the gm_mean() ## function per row (this is what the second parameter, 1, indicates) 
+pseudo_refs <- counts(dds_Project) %>% apply(., 1, gm_mean)
+
+## divide each value by its corresponding pseudo-reference value
+pseudo_ref_ratios <- counts(dds_Project) %>% apply(., 2, function(cts){ cts/pseudo_refs})
+
+## if you want to see what that means at the single-gene level, ## compare the result of this: counts(dds_Project)[1,]/pseudo_refs[1]
+## with
+pseudo_ref_ratios[1,]
+
+## determine the median value per sample to get the size factor
+apply(pseudo_ref_ratios , 2, median)
+```
+
+### STEP 10: Calculating and Applying the Size Factor
+```{r Calculating and Applying the Size Factor, eval=FALSE}
+dds_Project <- estimateSizeFactors(dds_Project) # calculate SFs, add them to object 
+
+plot( sizeFactors(dds_Project), colSums(counts(dds_Project)), # assess them
+      ylab = "Library sizes", xlab = "Size factors", cex = .6 )
+```
+
+### STEP 11: Checking whether the normalization helped adjust global differences between the samples.
+```{r Checking whether the normalization helped adjust global differences between the samples, eval=FALSE}
+
+## setting up the plotting layout
+par(mfrow=c(1,2))
+
+## extracting normalized counts
+counts.sf_normalized <- counts(dds_Project, normalized=TRUE)
+
+## adding the boxplots
+boxplot(counts(dds_Project), main = "Read counts only", cex = .6) 
+boxplot(counts.sf_normalized, main = "SF normalized", cex = .6)
+```
+We can’t really see anything because the range of the read counts is so large that it covers several orders of magnitude. For those cases, it is usually helpful to transform the normalized read counts to bring them onto more similar scales.
+
+To see the influence of the sequencing depth normalization, make two box plots of log2(read counts): - one for non-normalized counts - the other one for normalized counts
+
+### STEP 12: Checking influence of the sequencing depth normalization
+Two box plots of log2(read counts): 
+- one for non-normalized counts 
+- the other one for normalized counts
+```{r boxplot LOG2, eval=FALSE}
+par(mfrow=c(1,2)) # to plot the two box plots next to each other
+## bp of non-normalized
+boxplot(log2(counts(dds_Project) +1), notch=TRUE, 
+        main = "Non-normalized read counts",
+        ylab ="log2(read counts)", cex = .6)
+## bp of size-factor normalized values 
+
+boxplot(log2(counts(dds_Project, normalized=TRUE) +1), notch=TRUE,
+        main = "Size-factor-normalized read counts",
+        ylab ="log2(read counts)", cex = .6)
+```
+
+### STEP 13: Scatterplot of log normalized counts against each other 
+To see how well the actual values correlate which each other per sample and gene. Focus on two samples.
+```{r STEP 18, eval=FALSE}
+## non-normalized read counts plus pseudocount
+log_counts <- log2(counts(dds_Project, normalized = FALSE) + 1)
+
+## instead of creating a new object, we could assign the values to a distinct matrix
+## within the dds_gierlinski object
+assay(dds_Project, "log_counts") <- log2(counts(dds_Project, normalized = FALSE) + 1)
+
+## log normalized read counts
+assay(dds_Project, "log_norm_counts") <- log2(counts(dds_Project, normalized=TRUE) + 1)
+
+par(mfrow=c(1,2))
+dds_Project[, c("Irinotecan_Rep_1","Irinotecan_Rep_2")] %>% assay("log_norm_counts") %>% plot(cex=.1, main="WT_1 vs. WT_2")
+dds_Project[, c("Vehicle_Rep_1","Vehicle_Rep_2")] %>% assay("log_norm_counts") %>% plot(cex=.1, main="SNF2_1 vs SNF2_2")
+```
+
+The fanning out of the points in the lower left corner indicates that read counts correlate less well between replicates when they are low.
+This observation indicates that the standard deviation of the expression levels may depend on the mean: the lower the mean read counts per gene, the higher the standard deviation.
+
+### STEP 14: MeanSdPlot
+```{r step 18 part 3, eval=FALSE}
+#BiocManager::install("vsn")
+library(vsn)
+## generate the base meanSdPlot using sequencing depth normalized log2(read counts) ## set up plotting frame
+par(mfrow=c(1,1))
+## generate the plot
+msd_plot <- vsn::meanSdPlot(assay(dds_Project, "log_norm_counts"), ranks=FALSE, # show the data on the original scale
+plot = FALSE)
+## since vsn::meanSdPlot generates a ggplot2 object, this can be
+## manipulated in the usual ways
+msd_plot$gg +
+labs(title="Sequencing depth normalized log2(read counts)",
+         x="Mean", y="Standard deviation")
+```
+From the help for meanSdPlot:
+The red line depicts the running median estimator (window-width 10 percent). If there is no
+variance-mean dependence, then the line should be approximately horizontal.
+The plot here shows that there is some variance-mean dependence for genes with low read counts. This means that the data shows signs of heteroskedasticity.
+Many tools expect data to be homoskedastic, i.e., all variables should have similar variances.
+
+### STEP 15: Reducing the dependence of the variance on the mean
+```{r STEP 19 PART 1, eval=FALSE}
+## this actually generates a different type of object!
+dst_rlog <- rlog(dds_Project, blind = TRUE)
+## set blind = FALSE if the conditions are expected to introduce ## strong differences in a large proportion of the genes
+## (blind means blind to the experimental design)
+par(mfrow=c(1,2))
+plot(assay(dds_Project, "log_norm_counts")[,1:2], cex=.1,
+main="Size factor and\nlog2-transformed")
+## the rlog-transformed counts are stored in the "assay" accessor
+plot(assay(dst_rlog)[,1:2],
+cex=.1, main="rlog transformed", xlab=colnames(assay(dst_rlog[,1])), ylab=colnames(assay(dst_rlog[,2])) )
+rlog_norm_counts <- assay(dst_rlog)
+```
+
+
+As you can see in the left-hand plot, the variance that is higher for small read counts is tightened significantly using rlog in the right-hand plot.
+
+DESeq offers two ways to shrink the log-transformed counts for genes with very low counts: rlog and varianceStabilizingTransformation (vst).
+We’ll use rlog here as it is an optimized method for RNA-seq read counts: it transforms the read counts to the log2 scale while simultaneously minimizing the difference between samples for rows with small counts and taking differences between library sizes of the samples into account. More specifically, the expression values are modeled in such a manner that their dispersion is not based on the actual variability an individual gene may show across its replicates; instead, its variability is based on the general dispersion-mean trend over the entire dataset. This is possible because DESeq2 assumes that “genes of similar average expression strength have similar dispersion”. This is important as it allows us to base our estimation of the noise on a much larger data universe than what would normally provided by the original number of replicates. In this data set I only have 4 measurements per gene. That is not a lot of values to robustly estimate the noise! However, following DESeq2’s assumption, we can thus increase our number of data points significantly by assuming that all genes that share similar average expression values across all samples should also display similar noise levels. This assumption works very well on a global scale, but it also means that you cannot (!) take the rlog values at face value when looking at single genes, because their normalized metrics are now influenced by of all of the measurements for genes in the same expression strength bin. The vst methods tends to depend a bit more on the differences in sequencing depths, but generally, both methods should return similar results.
+
+What does the mean-sd-plot show?
+
+### STEP 16: Reducing the dependence of the variance on the mean -- MeanSdPlot
+```{r rlog mean sd plot, eval=FALSE}
+## rlog-transformed read counts
+msd_plot <- vsn::meanSdPlot(assay(dst_rlog), ranks=FALSE, plot = FALSE)
+msd_plot$gg +
+labs(title="Following rlog transformation",
+x="Mean", y="Standard deviation") + coord_cartesian(ylim = c(0,3))
+```
+It’s not perfect, but it looks much better than before.
+
+Now, we have expression values that have been adjusted for:
+-differences in sequencing depth
+-differences in RNA composition
+-heteroskedasticity;
+-large dynamic range.
+
+These values are now more realistic (albeit not perfect) representations of relative expression strengths of genes and they can now be used for exploratory analyses.
+
+For DE analyses, we will eventually supply the raw counts, though (because the DE tests will require their own modeling of the gene counts and they need to know the original noise and limitations associated with the raw counts).
+
+### STEP 17: Storing objects on disk to be loaded into future sessions
+```{r making sure objects are stored, eval=FALSE}
+save.image(file = "RNAseqIrinoectan.RData")
+```
+
+## Exploratory Data Analysis 
+
+### STEP 1: Reloading previous environment
+```{r ENSURE FOLD change calculated usingvehicle, eval=FALSE}
+# BiocManager::install("DESeq2")
+library(DESeq2) 
+library(tidyverse) 
+library(magrittr)
+FILE_DSD="RNAseqIrinoectan.RData"
+load(FILE_DSD)
+
+dds_Project
+```
+
+### STEP 2: Correlation Heatmap
+Using rlog-normalized counts to compute correlations and then sample-sample distances, plotting the result as a heatmap.
+```{r correlation heatmap, eval=FALSE}
+corr_coeff <- cor(rlog_norm_counts, method ="pearson") 
+as.dist(1-corr_coeff, upper=TRUE) %>%
+  as.matrix %>%
+  pheatmap::pheatmap(main="Pearson correlation",
+                     treeheight_row=0) ## hide the row dendrogram
+```
+
+Here we observe clear separation of the Vehicle and Irinotecan samples.
+
+### STEP 3: Dendrogram
+```{r DENDROGRAM, eval=FALSE}
+# Pearson corr. for rlog_norm values
+as.dist(1 - corr_coeff) %>% hclust %>%
+plot(labels=colnames(.), main="rlog transformed read counts")
+```
+
+### STEP 4: Compute PCA by hand
+PCA is typically performed on a subset of the highest variance genes.
+```{r pca 1, eval=FALSE}
+## compute PCA by hand
+rv <- rowVars(rlog_norm_counts)
+top_variable <- order(rv, decreasing = TRUE)[seq_len(500)] 
+pca <- prcomp(t(rlog_norm_counts[top_variable, ])) 
+head(pca$x)
+```
+#### STEP 5: Compute PCA on Default of 500 Most Variable Genes 
+The DESeq2::plotPCA function will automatically compute PCA on a default of 500 most variable genes.
+```{r}
+plotPCA(dst_rlog) + labs(color=NULL) + theme_bw()
+```
+Here we see PC1 strongly separates the two genotypes, comprising 72% of the total variance across samples (in the top 500 variable genes).
+
+
+## Performing differential gene expression analysis
+
+### STEP 1: Preparing for DE
+```{r preparing for de 1, eval=FALSE}
+# BiocManager::install("DESeq2")
+library(DESeq2) 
+library(tidyverse) 
+library(magrittr)
+load(FILE_DSD)
+dds_Project
+```
+### STEP 2: Ensure that the fold change will be calculated using the VEHICLE as the baseline. 
+DESeq uses the levels of the condition to determine the order of the comparison.
+```{r PREPARING FOR DE, eval=FALSE}
+dds_Project$condition
+```
+
+Irinotecan is currently assigned the first level and would thus be used as the baseline expression condition. It usually makes more sense to have the control condition be the baseline, so let’s reorder the levels of our condition factor.
+
+### STEP 3: Reorder the levels of condition factor
+```{r assign control to first level, eval=FALSE}
+## the following uses the magrittr assignment pipe
+dds_Project$condition %<>% relevel(ref="Vehicle_Rep") 
+dds_Project$condition
+```
+
+### STEP 4: Checking that the contrast is set up correctly. 
+We want the design to model condition as a fixed effect.
+```{r check contrast, eval=FALSE}
+design(dds_Project)
+```
+
+### STEP 5: Running the DE analysis
+```{r Running the DE analysis, eval=FALSE}
+dds_Project %<>% DESeq()
+```
+
+### STEP 6: Checking that the DESeq object now has additional entries in the rowData slot:
+There are the per-gene estimates, such as their average expression across all samples and the p-value results for the Wald test comparing the conditions as specified in Intercept and condition_Irinotecan_Rep_vs_Vehicle_Rep:
+```{r Checking that the DESeq object, eval=FALSE}
+#dds_Project
+rowData(dds_Project) %>% colnames
+```
+
+## STEP 7: Plotting the raw distribution of p-values
+```{r Plotting the raw distribution of p-values, eval=FALSE}
+rowData(dds_Project)$WaldPvalue_condition_Irinotecan_Rep_vs_Vehicle_Rep %>% hist(breaks=19, main="Raw p-values for Irinotecan vs Vehicle")
+```
+### STEP 8: Adjusting for multiple hypothesis testing with independent filtering
+```{r Adjusting for multiple hypothesis, eval=FALSE}
+df_results <- results(dds_Project, independentFiltering = TRUE, alpha = 0.05) # the first line will tell you which comparison was done to achieve the log2FC 
+head(df_results)
+```
+
+```{r summary(df_results), eval=FALSE}
+summary(df_results)
+```
+
+```{r DESeqResult object can basically be handled like a data.frame, eval=FALSE}
+# the DESeqResult object can basically be handled like a data.frame
+table(df_results$padj < 0.05)
+```
+
+Note: NAs in the padj column (but values in both log2FC and pvalue) are indicative of that gene being filtered out by the independent filtering (because it didn’t make the expression cut-off).
+
+## STEP 9: Visual assessments using normalized read counts
+```{r df_results, eval=FALSE}
+df_results$padj %>%
+hist(breaks=19, main="Adjusted p-values for Irinotecan vs Vehicle")
+```
+### STEP 10: Sorted table of results
+```{r eval=FALSE}
+df_results_sorted <- df_results %>% `[`(order(.$padj),) 
+head(df_results_sorted)
+```
+Many plots, even after the DE tests, use the normalized and variance-adjusted read counts for every gene in every single sample (see the previous Rmd document). To inspect the expression values underlying the outcome of the statistical test for a given gene, the (seq. depth normalized, log2-transformed) counts for single genes can be plotted with a DESeq2 wrapper function, plotCounts():
+
+### STEP 11: plotCounts
+```{r plotCounts, eval=FALSE}
+par(mfrow=c(1,2))
+plotCounts(dds_Project, gene="ENSG00000145425", normalized = TRUE, xlab="") 
+plotCounts(dds_Project, gene = which.max(df_results$padj), xlab="",
+           main = "Gene with max. p.adj.\n(=least significant)")
+```
+
+### STEP 12: Heatmap of the genes that show differential expression with adjusted p-value <0.05 (no scaling)
+```{r Heatmaps, eval=FALSE}
+#BiocManager::install("pheatmap")
+library(pheatmap)
+# identify genes with the desired adjusted p-value cut-off
+genes_dge <- rownames(subset(df_results_sorted, padj < 0.05)) # extract rlog-transformed values into a matrix
+rlog_dge <- dst_rlog[genes_dge,] %>% assay
+# heatmap of DEG sorted by p.adjust
+pheatmap(rlog_dge, scale="none",
+show_rownames=FALSE, main="DGE (no scaling)", color=colorRampPalette(RColorBrewer::brewer.pal(n=7, name="Reds"))(100)
+)
+```
+### STEP 12: Heatmap of the genes that show differential expression with adjusted p-value <0.05 (row based z-score)
+```{r heatmap zscore, eval=FALSE}
+pheatmap(rlog_dge, scale="row",
+         show_rownames=FALSE, main="DGE (row based z-score)")
+```
+
+Despite the fact that many visualizations will use the normalized read counts per sample, e.g. by simply focusing on that subset of genes that passed the adjusted p-value threshold, it is often useful to interrogate the fold change values that were estimated (i.e., the magnitude) of change as well. Many researchers believe that subtle fold changes are more difficult to interpret than dramatic differences in expression; therefore you may find yourself wanting to rank the genes by the logFC values in addition to their statistical significance as implied by their adjusted p-values.
+
+### STEP 13: MA plots
+The MA-plot provides a global view of the differential genes, with the log2 fold change on the y-axis over the mean of normalized counts. Genes that pass the significance threshold (adjusted p.value <0.05) are colored in blue.
+```{r}
+plotMA(df_results, alpha=0.05,
+main="Test: p.adj.value < 0.05", ylim = c(-4,4))
+```
+As you can see, there are more genes found to be differentially expressed as you move towards the right hand side of the plot, i.e. more strongly expressed genes.
+
+A very similar concept is shown with “volcano plots”, although volcano plots typically only focus on the relationship between the (adjusted) p-value and the log2-FC. 
+
+These plots allow you to identify putative genes of interest or check your pre-selected genes of interest and where they fall within the spectrum of DEGs.
+
+
+### STEP 14: Volcano Plots
+Volcano plots typically only focus on the relationship between the (adjusted) p-value and the log2-FC. 
+```{r volcano plots, eval=FALSE}
+#BiocManager::install("EnhancedVolcano")
+library(EnhancedVolcano)
+vp1 <- EnhancedVolcano(df_results,
+                       lab=rownames(df_results), x='log2FoldChange', y='padj', pCutoff=0.05,
+                       title="Irinotecan / Vehicle")
+print(vp1)
+```
+These plots allow you to identify putative genes of interest or check your pre-selected genes of interest and where they fall within the spectrum of DEGs.
+
+### STEP 15: Shrinking logFC values
+Function that will shrink the logFC estimates for lowly and noisily expressed genes towards zero, therefore reducing their importance for any subsequent downstream analyses. This is particularly important for applications with ranked gene lists such as GSEA.
+```{r}
+#BiocManager::install("apeglm")
+## internally, lfcShrink will call results() 
+df_results_shrunk <- lfcShrink(dds_Project, coef=2, # see below for explanation 
+                               type="apeglm") # see Zhu et al. (2018)
+```
+### STEP 16: Check which coefficient is indicated in the coef parameter above
+```{r}
+resultsNames(dds_Project)
+```
+
+
+### STEP 17: Testing what the effect of the shrinkage is on the MA plot:
+```{r}
+par(mfrow = c(1,2)) 
+plotMA(df_results, alpha=0.05,
+main="no shrinkage", ylim=c(-4,4)) 
+plotMA(df_results_shrunk, alpha=0.05,
+main="with logFC shrinkage", ylim=c(-4,4))
+```
+
+### STEP 18: Testing what the effect of the shrinkage is on the Volcano plot:
+```{r}
+vp2 <- EnhancedVolcano(df_results_shrunk, lab=rownames(df_results_shrunk), x='log2FoldChange', y='padj', pCutoff = 0.05, title="with logFC shrinkage")
+
+library(patchwork)
+vp1 + vp2
+```
+
+### Run differential gene expression analysis with DESeq2
+
+```{r perform_dge, message=FALSE}
+DGE_results <- results(dds_Project,
+                       independentFiltering = TRUE,
+                       alpha = 0.05,
+                       saveCols="Length")
+#DGE_results
+
+gene_list <- DGE_results$log2FoldChange
+#gene_list
+
+names(gene_list) <- rownames(DGE_results)
+#gene_list
+
+gene_list <- sort(gene_list, decreasing = TRUE)
+head(gene_list)
+```
+
+Next we subset our results to just those genes whose adjusted p-values (after multiple hypothesis correction) pass our statistical threshold of 0.05. These are the genes that we are labeling as differentially expressed.
+
+```{r get_deg}
+DGE_genes <- subset(DGE_results, padj < 0.05)
+DGE_genes <- DGE_genes[order(DGE_genes$padj), ]
+head(DGE_genes)
+```
+
+For the GSEA analysis, we need the sorted results of the DESeq2 analysis (`DGE_results`) 
+
+
+### GO term enrichment analysis using clusterProfiler
+For the GO term enrichment analysis, we need the vector of differentially expressed genes (`DGE_genes`)
+```{r load_ora_packages, message=FALSE}
+library(clusterProfiler)
+library(enrichplot)
+library(ggplot2)
+library(DOSE)
+```
+
+
+```{r load_ora_packages, message=FALSE}
+library(org.Hs.eg.db)
+human <- org.Hs.eg.db
+## examine what keytypes are available to query the database
+keytypes(human)
+```
+
+```{r columns human, eval=FALSE}
+columns(human)
+```
+
+
+```{r perform_go_ora}
+organism <- "org.Hs.eg.db"
+res_go <- enrichGO(gene = rownames(DGE_genes),
+                   universe = rownames(dds_Project),
+                   ont = "ALL",
+                   keyType = "ENSEMBL",
+                   minGSSize = 3,
+                   maxGSSize = 800,
+                   pvalueCutoff = 0.05,
+                   OrgDb = org.Hs.eg.db,  # example for human
+                   pAdjustMethod = "BH")
+print(res_go)
+```
+
+
+```{r resgo results, eval=FALSE}
+# over-representation test
+#
+#...@organism 	 Homo sapiens 
+#...@ontology 	 GOALL 
+#...@keytype 	 ENSEMBL 
+#...@gene 	 chr [1:2015] "ENSG00000168209" "ENSG00000100201" "ENSG00000214548" "ENSG00000072274" "ENSG00000158089" ...
+#...pvalues adjusted by 'BH' with cutoff <0.05 
+#...210 enriched terms found
+# 'data.frame':	210 obs. of  10 variables:
+#  $ ONTOLOGY   : chr  "BP" "BP" "BP" "BP" ...
+# $ ID         : chr  "GO:0002181" "GO:0006412" "GO:0043043" "GO:1903047" ...
+# $ Description: chr  "cytoplasmic translation" "translation" "peptide biosynthetic process" "mitotic cell cycle process" ...
+# $ GeneRatio  : chr  "96/1810" "162/1810" "164/1810" "150/1810" ...
+# $ BgRatio    : chr  "152/15246" "692/15246" "719/15246" "724/15246" ...
+# $ pvalue     : num  3.53e-51 2.58e-18 2.22e-17 2.36e-12 5.01e-10 ...
+# $ p.adjust   : num  2.82e-47 1.03e-14 5.91e-14 4.71e-09 8.00e-07 ...
+# $ qvalue     : num  2.65e-47 9.70e-15 5.57e-14 4.44e-09 7.54e-07 ...
+# $ geneID     : chr  "ENSG00000145425/ENSG00000142937/ENSG00000142541/ENSG00000122406/ENSG00000163682/ENSG00000166441/ENSG00000100316"| __truncated__ "ENSG00000145425/ENSG00000142937/ENSG00000142541/ENSG00000156508/ENSG00000122406/ENSG00000163682/ENSG00000166441"| __truncated__ "ENSG00000145425/ENSG00000142937/ENSG00000142541/ENSG00000156508/ENSG00000122406/ENSG00000163682/ENSG00000166441"| __truncated__ "ENSG00000143878/ENSG00000171848/ENSG00000101868/ENSG00000094804/ENSG00000092853/ENSG00000177084/ENSG00000137154"| __truncated__ ...
+# $ Count      : int  96 162 164 150 102 73 110 47 75 69 ...
+#...Citation
+# T Wu, E Hu, S Xu, M Chen, P Guo, Z Dai, T Feng, L Zhou, W Tang, L Zhan, X Fu, S Liu, X Bo, and G Yu.
+# clusterProfiler 4.0: A universal enrichment tool for interpreting omics data.
+# The Innovation. 2021, 2(3):100141 
+```
+
+The `res_go` result is a data frame that you can explore. For example, you can look at the first GO category that was found to be statistically significant.
+
+```{r}
+res_go[1, ] %>% str
+```
+We see here that the GO category is **cytoplasmic translation** and that the proportions of genes from that geneset is 96/1810 in our set of DGE, and 152/15246 in the background gene set. Those 96 genes are listed in the geneID column. We can parse those out with `strsplit`.
+
+```{r}
+cytoplasmic_translation_genes <- unlist(strsplit(res_go[1, "geneID"], "/"))
+head(cytoplasmic_translation_genes)
+
+#[1] "ENSG00000145425" "ENSG00000142937" "ENSG00000142541" "ENSG00000122406" "ENSG00000163682" "ENSG00000166441"
+```
+
+One of the popular tools that will group terms based on their semantic similarity is [REVIGO](http://revigo.irb.hr/), which requires as input a simple list of the GO category identifiers and a corresponding p-value.
+
+```{r}
+write.table(res_go@result[ , c("ID", "pvalue")],
+            file="enrichGO_Project.txt", sep="\t",
+            quote=FALSE, row.names=FALSE)
+```
+
+[REVIGO](http://revigo.irb.hr/) is exclusively available as a web interface where you'll have to manually copy and paste the content of the enrichGO.txt we just exported.
+
+REVIGO generates multiple plots; the easiest way to obtain them in high quality is to download the R scripts that it offers under each figure ("Export to R script for plotting") and to run those yourself. You can also modify the R script if you want to generate an object rather than a PDF.
+
+### Gene Set Enrichment Analysis (GSEA) using clusterProfiler
+
+For GSEA, you will need to provide a full list of all genes that you analyzed. Those genes should be sorted by some sort of metric that you feel is a meaningful representation of the signal you're after. Here, we have sorted by logFC. This sorted vector of gene-value pairs is then compared to the pathways from your selected database and those pathways that seem to have a consistent enrichment for positive (or negative) fold changes across all of the pathway's genes will be highlighted.
+
+The function that clusterProfiler relies on for GSEA is the `fgsea` function of the [package of the same name](https://www.bioconductor.org/packages/release/bioc/html/fgsea.html), which, in turn, is a more efficient implementation of the original GSEA algorithm introduced by [Subramanian et al. (2005)](https://www.pnas.org/content/102/43/15545).
+
+
+```{r run_go_gsea}
+organism <- "org.Hs.eg.db"
+gse <- gseGO(geneList=gene_list,
+             ont ="ALL",
+             keyType = "ENSEMBL",
+             minGSSize = 3,
+             maxGSSize = 800,
+             pvalueCutoff = 0.05,
+             verbose = TRUE,
+             OrgDb = organism,
+             pAdjustMethod = "BH")
+```
+Dot plots depict the enrichment scores and gene counts per gene set (for the most significant gene sets).
+
+```{r gsea_dotplot, eval=FALSE}
+dotplot(gse, showCategory=10, split=".sign") + facet_grid(.~.sign)
+```
+
+
+```{r}
+gseaplot(gse, by = "all", title = gse$Description[1], geneSetID = 1)
+```
+
+
+## QUESTION 2: For each of the ontologies (BP, CC, and MF), list the top 5 most overrepresented GO terms in your DE genes. (3 pts)
+
+Note: being the "top overrepresented GO term" means that the particular GO term is statistically significantly enriched among the differentially expressed genes (DEGs) compared to all genes in the genome. 
+```{r question 2 part 1, eval=FALSE}
+#Performed gene ontology enrichment analysis above 
+
+#Filtering results for each ontology (BP, CC, and MF)
+res_BP <- res_go[res_go$ONTOLOGY == "BP", ]
+res_CC <- res_go[res_go$ONTOLOGY == "CC", ]
+res_MF <- res_go[res_go$ONTOLOGY == "MF", ]
+```
+
+Top 5 most overrepresented GO terms in Biological Process (BP) ontology:
+```{r question 2.1 part 1, eval=FALSE}
+#Making sure that the the results are sorted based on p-adjusted values and then selecting the top 5 terms for each ontology
+top_BP <- head(res_BP[order(res_BP$p.adjust), ], 5)
+print(top_BP[, c("ID", "Description", "p.adjust")])
+```
+
+
+Top 5 most overrepresented GO terms in Cellular Component (CC) ontology:
+```{r question 2.2 part 1, eval=FALSE}
+top_CC <- head(res_CC[order(res_CC$p.adjust), ], 5)
+print(top_CC[, c("ID", "Description", "p.adjust")])
+```
+
+Top 5 most overrepresented GO terms in Molecular Function (MF) ontology:
+```{r question 2.3 part 1, eval=FALSE}
+top_MF <- head(res_MF[order(res_MF$p.adjust), ], 5)
+print(top_MF[, c("ID", "Description", "p.adjust")])
+```
+
+exon feature counts -- fix this up later
+## STEP 4: Generate a read count table using featureCounts to count the number of reads that overlap with each exon
+```{bash feature counts, eval=FALSE}
+srun -n1 --pty --partition=angsd_class --mem=4G bash -i
+mamba activate angsd
+
+# Run featureCounts to count the number of reads that overlap with each exon with multiple input BAM files and one output summary file
+featureCounts -O -a /athena/angsd/scratch/sah4030/angsd_homework/Project/hg38.knownGene.gtf -f -o combined_feature_counts.txt -F GTF -p *.Aligned.sortedByCoord.out.bam --countReadPairs
+```
+
+PARAMETERS: 
+
+1) '-O' assigns reads to all their overlapping meta-features. When you specify this option, 'featureCounts' will assign each read to all the metafeatures it overlaps with. This can be particularly useful when reads map to multiple genomic features simultaneously, such as when a read aligns to overlapping exons from different genes. As such, I chose to include it in my command.
+
+2) '-f' If specified, read summarization will be performed at feature level (eg. exon level). Otherwise, it is performed at meta- feature level (eg. gene level).
+
+1) '-p' specifies that fragments (or templates) will be counted instead of reads. This is only applicable for paired-end reads. 
+
+### STEP 5: Copying summary files to local computer
+```{bash 2, eval = FALSE}
+exit 
+
+scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/combined_feature_counts.txt.summary ~/Desktop/angsd/MSIV
+```
+
+### STEP 6: Reading summary files generated by the featureCounts into R
+```{r step2, eval=FALSE}
+folder <- "/Users/sophiahoward/Desktop/angsd/MSIV/" # download count table!
+
+# Read in the summary files
+df_counts <- read.table(paste0(folder, "combined_feature_counts.txt.summary"), header = TRUE)
+str(df_counts)
+```
+
+### STEP 3: Preparing data frame for analysis
+```{r step3 back up, eval=FALSE}
+original_names <- names(df_counts) # keep a back-up copy of the original names
+
+# Define the pattern to remove from the column names
+pattern_to_remove <- "\\.Aligned\\.sortedByCoord\\.out\\.bam"
+
+# Remove the pattern from the column names
+new_colnames <- sub(pattern_to_remove, "", original_names)
+
+# Update the column names in the dataframe
+colnames(df_counts) <- new_colnames
+
+```
+
+![](/Users/sophiahoward/Desktop/angsd/MSIV/Assigned and Unassigned Reads.png)
+
+As can be seen in the plot, all of the samples have a high number of "Assigned" reads compared to "Unassigned_NoFeatures". The tall red bars indicate that a large majority of reads have been successfully mapped to known features in the reference genome, which suggests good quality of sequencing data and effective alignment. A high assignment rate is typically indicative of a successful experiment, as it means that most of the sequenced reads could be used for downstream analysis, like quantifying gene expression levels.
+
+There appears to be consistency in the number of assigned reads between the replicates of each condition (Irinotecan Rep 1 vs Rep 2, Vehicle Rep 1 vs Rep 2). This suggests that the experimental conditions were maintained with a relatively good level of uniformity across replicates, which is critical for valid comparative analyses. The slight variations that do exist between replicates may be due to biological variation or minor technical differences in sample processing.
