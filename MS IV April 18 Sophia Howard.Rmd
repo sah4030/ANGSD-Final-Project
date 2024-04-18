@@ -11,7 +11,7 @@ output:
 ---
 # METHODS 
 
-## Sample Alignment: 
+## Sample Alignment:
 
 ### STEP 1: Downloading all FASTQ Files
 Note: included 'fastq-dump' options '--readids' '--split-3' as my samples are paired-end reads. 
