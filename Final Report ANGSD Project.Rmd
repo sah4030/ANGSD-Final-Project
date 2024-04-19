@@ -1,0 +1,287 @@
+---
+title: "Final Report"
+author: "Sophia Howard"
+date: "2024-04-18"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    toc: true
+    toc_depth: 3
+---
+# INTRODUCTION
+Camptothecin (CPT) was first isolated from the stem wood of *Camptotheca acuminate*, commonly known as the “Chinese Happy Tree,” by botanists at the USDA’s Plant Introduction Division in the mid-1950’s (Wall et al., 1966). This tree bark had been recognized for generations in Traditional Chinese Medicine as a natural cancer remedy (Li et al., 2017). In the late 1950s to early 1970s, CPT was chemically synthesized and pre-clinical and clinical studies were conducted in the United States (Li et al., 2017). CPT demonstrated substantial anti-tumor activity in standard in vitro test systems as well as in a mouse leukemia model(Martino et al., 2017). However, CPT presented critical challenges for drug development such as poor stability, poor solubility, unpredictable adverse drug-drug interactions, and high toxicity(Li et al., 2017; Martino et al., 2017).
+
+Due to the focus of DNA topoisomerase 1 (TOP1) as a cellular target in the late 1980s, interest in CPTs as a therapeutic rapidly grew (Martino et al., 2017). In the cell, TOP1 relaxes supercoiled DNA by introducing single-stranded nicks and then reanneals the strand. CPT and CPT analogues inhibit TOP1 activity by binding to the TOP1/DNA covalent complex and preventing both the re-ligation of nicked DNA and the dissociation of TOP1 from the DNA (Li et al., 2017). The formation of this complex prevents the replication fork from forming, resulting in DNA double-stranded breaks and subsequent cell death (Li et al., 2017).
+
+### Figure 1. Mechanism of Action of Camptothecin (Kacprzak, 2013)
+
+![](/Users/sophiahoward/Desktop/Mechanism of Action of CPT.png)
+
+
+Irinotecan (CPT-11) is a water-soluble and semi-synthetic prodrug derived from camptothecin. To develop CPT-11, a bis-piperidine group was added to a camptothecin derivative (SN38) via an ester linkage (Sapra et al., 2008). In the body, enzyme carboxylersterase-2 removes the bis-piperdine group, thereby producing 1-hydroxy-ethyl-camptothecin (SN38), the active ingredient of CPT-11 (Sapra et al., 2008). SN38 is 100- to 1000-fold more cytotoxic in vitro than is CPT-11 (Chabot, 1997). Irinotecan is FDA-approved as both a free drug (e.g. Camptosar® and generic CPT-11 (irinotecan hydrochloride injection) and a liposome-encapsulated drug (Onivyde®) for advanced colorectal and pancreatic cancer, respectively, and is frequently used off-label to treat recurrent/refractory solid tumors (Bailly, 2019). 
+
+### Figure 2. Curran's Modular Strategy of CPT Synthesis (Kacprzak, 2013)
+
+![](/Users/sophiahoward/Desktop/CPT Synthesis.png)
+
+Pancreatic cancer (pancreatic ductal adenocarcinoma [PDAC]) is the fourth-leading cause of cancer death in the United States with an incidence of 62,210 and 49,830 pancreatic-cancer related deaths in the United States in 2022 (McGuigan et al., 2018). Despite developments in detection and management, the five-year survival of PDAC has only reached about 11.5% for all stages and 3.1% for metastatic disease (McGuigan et al., 2018; Cameron et al., 2023). Irinotecan is currently used to treat PDACs as part of the FOLFIRINOX (fluorouracil, irinotecan, and oxaliplatin) drug cocktail (McGuigan et al., 2018). Despite its wide use and established anticancer activity, irinotecan continues to present major limitations for pancreatic cancer patients. The current study aims to investigate the effect of TOP1 inhibition on the levels of other genes in the pancreatic cancer cell. Understanding the effect of irinotecan-induced TOP1 inhibition on pancreatic cell genes could provide valuable insight into how TOP1-targeted therapies interact with cellular networks, potentially identifying new therapeutic targets and enhancing the strategic design of combination treatments to increase treatment efficacy in pancreatic cancer.
+
+# MATERIALS AND METHODS
+## STUDY DESIGN
+The objective of this study was to test inhibition of TOP1 in patient derived xenograft (PDX) models of PDAC to determine whether treatment with irinotecan affects the levels of other genes in the pancreatic cancer cell. I hypothesized that the expression of TOP1 will affect the levels of other genes in the topoisomerase I pathway in pancreatic cancer cells. 
+
+I obtained samples from Gene Expression Omnibus that were generated in the lab of Laura Baranello in the Cell and Molecular Biology Department of the Karolinska Institute in Stockholm, Sweden for the following study: 
+
+Cameron DP, Grosser J, Ladigan S, Kuzin V et al. Coinhibition of topoisomerase 1 and BRD4-mediated pause release selectively kills pancreatic cancer via readthrough transcription. Sci Adv 2023 Oct 13;9(41):eadg5109. PMID: 37831776
+
+## SAMPLE GENERATION
+The PDX mouse model was established using surgically resected PDAC tissues collected from patients at the Ruhr-University Bochum Comprehensive Cancer Center. Informed and written consent was obtained from all patients. The ethics committee of the Ruhr University Bochum approved this study (permission nos. 3534-09, 3841-10, and 16-5792). Patient tumor tissues were xenografted in both flanks of nude mice (NMRI- Foxn1nu/Foxn1nu, Janvier, St Berthevin Cedex, France), expanded, isolated, and reimplanted for at least three generations. Five- to 10- week-old mice were housed under specific pathogen-free conditions where light, temperature (+21°C), and relative humidity (50 to 60%) were controlled. Food and water were available ad libitum. All animal experiments were approved by the local authorities (81-02.04.2017.A423) and performed in accordance with the guidelines for Ethical Conduct in the Care and Use of Animals. 
+
+To establish treatment cohorts, tumor pieces (1-2 mm) from early passage PDXs were soaked in undiluted Matrigel (Becton Dickinson) for 15-30 minutes and subsequently implanted subcutaneously into female mice (NMRI-Foxn1nu/Foxn1nu, Janvier, St. Berthevin Cedex, France) at two sites (scapular region) using as many as four pieces per site. Once the tumors grew to a size of approximately 100-200 mm3, mice were randomized to receive the treatment or a vehicle control (N=5-6 mice/group). Mice were treated daily with irinotecan intraperitoneally three times per week (Monday, Wednesday, and Friday) at 15 mg/kg, followed by 1 week of treatment pause for two consecutive cycles.
+
+In order to harvest RNA for sequencing, the PDX samples were taken from storage at -80°C and broken apart in liquid nitrogen with a mortar and pestle. The tumor fragments were then weighed and homogenized in either TRIzol reagent using a rotor stator instrument or crushing in the mortar and pestle with a buffer from the AllPrep DNA/RNA Mini Kit (QIGEN, 80204). RNA was extracted using the TRIzol (Invitrogen, 15596018) or AllPrep kits. Afterward, 500 ng of RNA per sample was processed using the RiboCop kit (Lexogen, 037) for rRNA removal.
+
+RNA extracted from the PDXs was quantified with the Qubit RNA nano Assay Kit (Thermo Fisher Scientific, Q33230). Libraries were created according to the CORALL kit protocol (Lexogen, 095). Library preparation success was confirmed using the Agilent High Sensitivity DNA Kit (Agilent, 5067-4626) on the Agilent 2100 Bioanalyzer. Libraries were pooled and sequenced using the NextSeq 500/550 High Output Kit v2.5 (Illumina, 20024906). The sequencing run was paired end and dual index with 75-bp reads each. 
+
+## DATA DOWNLOAD AND PRE-PROCESSING
+I used the SRA-toolkit to download the FASTQ files for my samples of interest (SRR21106059, SRR21106060, SRR21106063, and SRR21106064). The conditions and replicate numbers of the samples can be seen in the following table: 
+
+### Table 1. Sample Conditions and Replicate Numbers
+
+|  **Sample** | **Condition** | **Replicate** |
+|:-----------:|:-------------:|:-------------:|
+| SRR21106059 |    Vehicle    |       2       |
+| SRR21106060 |    Vehicle    |       1       |
+| SRR21106063 |   Irinotecan  |       2       |
+| SRR21106064 |   Irinotecan  |       1       |
+
+Once downloaded, I renamed the FASTQ files to reflect their condition and replicate number. 
+
+I performed FastQC on each of the original FASTQ files to assess the sequencing data quality. Initial FastQC results demonstrated poor quality in sequence duplication levels and per base sequence content. High sequence duplication levels suggest potential PCR artifacts or over-amplification. Deviations in per base sequence content may indicate biases in the sequencing process. Based on these results, I decided to perform adapter trimming. 
+
+I performed TrimGalore to trim my FASTQ files. I chose to include 2 bp as the minimum required adapter overlap (stringency) instead of 1 bp; increasing the minimum required adapter overlap can improve the accuracy of adapter trimming by requiring a greater overlap between the adapter sequence and the read sequence and subsequently reducing the likelihood of erroneously trimming adapter sequences from reads that are not actually adapters. After the completion of Trim Galore, I re-ran FastQC on the trimmed FASTQ files to confirm that the data quality had improved. 
+
+## SAMPLE ALIGNMENT 
+Once the FASTQ files had been processed and were confirmed to be of good quality, I created a genome index to establish the suffix array and related indices.To do so, I downloaded the human reference genome (Homo_sapiens.GRCh38.dna.primary_assembly.fa) and its annotation (Homo_sapiens.GRCh38.111.gtf) from Ensembl, wrote a batch script to generate the index, and created a directory for the index. 
+
+After the index generation was complete, I aligned each sample to the index. I included several parameters. ‘--outFilterMultimapNmax 1.’  This parameter specifies the max number of multiple alignments allowed for a read. By setting this parameter to 1 I am ensuring that each read is assigned to only one genomic location, even if it aligns equally well to multiple locations. ‘--alignIntronMin 20’ This parameter specifies the minimum allowed length of an intron. It sets the smallest size of an intron that STAR will attempt to align. Setting this value too low might result in STAR failing to detect very short introns, while setting it too high might lead to increased computational time and memory usage.The average intron length in humans is around 5-10 kb, although this number greatly varies, with introns ranging from a few hundred base pairs to tens of thousands of base pairs.I decided to set it to around 20 base pairs to allow for the detection of relatively short introns. ‘--alignIntronMax 200000’ This parameter specifies the maximum allowed length of an intron. It sets the upper limit for the size of introns that STAR will attempt to align. Setting this value too low might result in missing alignments for longer introns, while setting it too high might lead to increased computational time and memory usage as STAR tries to align very long introns. I decided to set it to 200,000 base pairs to accommodate the longest expected introns in the human genome. ‘--outSAMattributes NH HI NM MD AS nM: Specifies which information to include in the optional SAM attribute. NH: Number of reported alignments that contain the query in the current record. This field is useful for detecting multimapping reads. HI: SAM attribute representing the hit index (alignment sequence position) of the alignment. It's used to distinguish alignments that originate from the same query sequence but map to different locations in the reference genome. NM: Edit distance (number of mismatches) between the aligned sequence and the reference sequence. This field provides information about the number of differences between the aligned read and the reference genome. MD: String representation of the alignment details, indicating the differences between the read and the reference sequence (mismatches, insertions, deletions). AS: Alignment score, which represents the quality of the alignment. It's a numeric value calculated by the aligner based on various factors such as match/mismatch scores, gap penalties, etc. nM: SAM attribute indicating the edit distance normalized by the length of the alignment. It's similar to NM, but the edit distance is normalized by the alignment length, providing a measure of the mismatch rate.
+
+## QUALITY CONTROL OF ALIGNMENT
+Once the alignments were complete, I used samtools to access, view, sort, and manipulate the BAM files that contain the aligned reads. I also performed some basic quality control (QC) using samtools (flagstat and stats). I then performed MultiQC to aggregate and visualize the descriptive and QC information I had generated at that point. The following table summarizes the sequencing and alignment quality metrics for each sample processed in the study:
+
+----------
+
+### Table 2. General Statistics MultiQC
+
+| Sample Name      | Error rate | M Non-Primary | M Mapped Reads | % Mapped  | % Proper Pairs | M Total Seqs | M Reads Mapped | % Aligned | M Aligned |
+|------------------|------------|---------------|----------------|-----------|----------------|--------------|----------------|-----------|-----------|
+| Irinotecan_Rep_1 | 0.29%      | 0.0           | 74.1           | 100.0%    | 100.0%         | 74.1         | 74.1           | 80.8%     | 37.1      |
+| Irinotecan_Rep_2 | 0.41%      | 0.0           | 59.8           | 100.0%    | 100.0%         | 59.8         | 59.8           | 83.0%     | 29.9      |
+| Vehicle_Rep_1    | 0.36%      | 0.0           | 61.2           | 100.0%    | 100.0%         | 61.2         | 61.2           | 83.5%     | 30.6      |
+| Vehicle_Rep_2    | 0.31%      | 0.0           | 77.4           | 100.0%    | 100.0%         | 77.4         | 77.4           | 85.0%     | 38.7      |
+
+Legend:
+
+-Error Rate: The percentage of bases that were incorrectly sequenced or aligned, calculated as the number of mismatches divided by the total number of aligned bases.
+
+-M Non-Primary: The number of secondary alignments in millions, indicating reads that could align to more than one genomic location.
+
+-M Mapped Reads: The total number of reads successfully mapped to the reference genome, in millions.
+
+-% Mapped: The percentage of total reads that were successfully mapped to the reference genome.
+
+-% Proper Pairs: The percentage of read pairs where both reads in the pair align correctly and in the proper orientation relative to each other.
+
+-M Total Seqs: The total number of sequencing reads generated for the sample, in millions.
+
+-M Reads Mapped: The number of reads mapped to the reference genome, in millions.
+
+-% Aligned: The percentage of total reads that align to the reference genome with a quality score meeting the threshold for reliable alignments.
+
+-M Aligned: The number of reads, in millions, that met the quality threshold for alignment and were used in subsequent analysis.  
+
+-------------------
+
+As can be seen in Table 1, the percentage of total reads that align to the reference genome with a quality score meeting the threshold for reliable alignments was approximately 80-85%. 
+
+I next used  tools RNA-seq Quality Control (RSeQC) to perform Gene Body Coverage and Read Distribution alignment QC. The gene body coverage plot (Figure 3) displays the coverage uniformity of sequencing reads across the length of gene bodies, from the 5' to 3' end. It's generated by dividing gene bodies into 100 equal percentiles and plotting the average coverage (read depth) for each percentile. The ideal profile would show uniform coverage, indicating unbiased RNA-seq across the gene body. Deviations could suggest technical biases like PCR amplification or sequencing inefficiencies. The reference gene set used for this analysis was hg38.HouseKeepingGenes.bed.gz.
+
+### Figure 3. Gene Body Coverage Plot (RSeQC)
+![](/Users/sophiahoward/Desktop/angsd/MSIV/rseqc_gene_body_coverage_plot.png)
+
+As can be seen in Figure 3, 
+
+### Figure 4. Read Distribution Plot (RSeQC)
+![](/Users/sophiahoward/Desktop/angsd/MSIV/rseqc_read_distribution_plot.png)
+
+This bar graph depicts the read distribution across different genomic features such as transcription start sites (TSS), transcription end sites (TES), and other intergenic regions. This analysis provides insight into the specificity and efficiency of the RNA-seq experiment. Ideally, most reads would align to the TSS and gene bodies, with fewer reads in the intergenic regions, indicating targeted and specific sequencing. The reference annotation used for categorizing these genomic regions was hg38_MANE.bed.gz.
+
+## GENE EXPRESSION QUANTIFICATION
+
+As a next step I performed featureCounts to generate quantitative measurements of each gene's expression strength. I used the hg38 annotation file (Homo_sapiens.GRCh38.111.gtf) and grouped the counts by the gene_id attribute from the GTF file (-g gene_id flag). 
+
+Following read alignment and counting, I had quantitative measurements of each gene's expression strength. I then read the raw read counts into R to normalize the samples for differences in their sequence depth. As a first step, I  generated a DESeqDataSet, which is a specific R object class that combines data.frames and one or more matrices into one object. The data.frames generally contain metadata about the samples and genes, while the matrices contain the expression values. I made a colData table with all of the variables that I know about my samples with row.names that correspond to the unique sample names. I also  made a countData table with a matrix of the actual values associated with the genes and samples. The number of reads that were sequenced for each read can be seen in Figure 5. 
+
+### Figure 5. Number of Reads that Were Sequenced for Each Eample 
+![](/Users/sophiahoward/Desktop/angsd/Library Sizes.png)
+
+I next filtered out any genes that had no reads. This filtering was also translated to the count matrix that I store in that object (and all other matrices stored in the assay slot).
+
+## READ COUNT NORMALIZATION
+
+Once the raw count data were properly prepared, I used DESeq2’s functions for sequencing depth normalization to eliminate systematic effects that are not associated with the biological differences of interest. I used the estimateSizeFactors function to calculate and apply the size factor. The estimateSizeFactors function makes the following assumptions: 1) most genes are not changing across conditions; 2) size factors should be around 1; and 3) normalized counts are calculated as so, (countsgeneX,sampleA/sizefactorsampleA).
+
+### Figure 6. Size Factor
+![](/Users/sophiahoward/Desktop/angsd/Size Factor.png)
+
+To check whether the normalization helped adjust global differences between the samples, I next plotted boxplots of the raw read counts and the normalized size factor counts. Since the read counts cover several orders of magnitude, however, I found it hard to observe a difference between the raw and normalized data (Figure 7). 
+
+### Figure 7. Raw Read Counts vs Normalized Size Factor Counts
+![](/Users/sophiahoward/Desktop/angsd/boxplot.png)
+
+I log2-transformed the normalized read counts to compact the range and bring it closer to normally distributed values and then made a box plot of non-normalized log2-transformed read counts and a box plot of normalized log2-transformed read counts (Figure 8.)
+
+### Figure 8. Raw Read Counts vs Normalized Size Factor Counts: Log2-Transformed
+![](/Users/sophiahoward/Desktop/angsd/log2-transformed read counts.png)
+In both the non-normalized and normalized box plots (Figure 8), the interquartile ranges (IQRs) appear to be similar across samples, indicating that the central 50% of the data (from the 25th to 75th percentiles) are within the same range of values. However, the range (distance from the lowest to the highest value, including outliers) seems to be slightly reduced in the normalized box plot, which suggests that size-factor normalization has helped to bring the counts from all samples onto a more comparable scale. 
+
+Next, to see how well the actual values correlated with each other per sample and gene, I plotted scatterplots of log normalized counts (Figure 9; each dot represents one gene).  
+
+### Figure 9. Log Normalized Counts
+![](/Users/sophiahoward/Desktop/angsd/log normalized counts Scatterplot.png)
+
+In the scatterplot, I noticed that points in the lower left corner fanned out. This observation indicated that the standard deviation of the expression levels may depend on the mean, where a lower mean read counts per gene has a higher standard deviation (Figure 9).
+
+I plotted a MeanSdPlot to further investigate this variance-mean dependence (Figure 10).
+
+### Figure 10. Variance-Mean Dependence
+![](/Users/sophiahoward/Desktop/angsd/Sequencing depth normalized log2(read counts).png)
+
+In Figure 10, the red line depicts the running median estimator (window-width 10 percent) where a horizontal line would indicate the absence of a variance-mean dependence.The plot indicates that there is some variance-mean dependence for genes with low read counts, which suggests that the data show signs of heteroskedasticity.
+
+To address this heteroskedasticity, I next worked to reduce the dependence of the variance on the mean. I used DESeq's method of rlog to shrink the log-transformed counts for genes with very low counts, as it is an optimized method for RNA-seq read counts. Rlog transforms the read counts to the log2 scale while simultaneously minimizing the difference between samples for rows with small counts and taking differences between library sizes of the samples into account. More specifically, the expression values are modeled such that that their dispersion is not based on the actual variability of an individual gene across its replicates but instead is based on the general dispersion-mean trend over the entire data set. Importantly, DESeq2 assumes that “genes of similar average expression strength have similar dispersion,” which allows the estimation of noise to be based on a much larger data universe than what would normally provided by the original number of replicates. The results of the rlog transformation of the Irinotecan condition can be seen in Figure 11 
+
+### Figure 11. Rlog Reduced Dependence of Variance on Mean
+![](/Users/sophiahoward/Desktop/angsd/Reducing dependence of variance on mean.png)
+
+### Figure 12. Rlog Reduced Dependence of Variance on Mean (MeanSD Plot)
+![](/Users/sophiahoward/Desktop/angsd/MeanSdPlot Following rlog transformation.png)
+
+As can be seen in Figure 11, the variance that is higher for small read counts (left plot) is tightened significantly using rlog (right plot). In Figure 12, the red line representing the running median estimator is nearly horizontal, indicating that the rlog transformation reduced the variance-mean dependence. 
+
+At this point, I have performed normalization to adjust for differences in sequencing depth, differences in RNA composition, heteroskedasticity, and a large dynamic range. As such, my normalized data were more realistic representations of relative expression strengths of genes and they can now be used for exploratory analyses. 
+
+## EXPLORATORY DATA ANALYSIS
+
+A useful quality control for RNA-seq data once in the form of feature-by-sample counts is to check the global similarity of samples. Ideally, the biological replicates in an experiment will be most similar to those in the same condition. This should be true of my samples as they were derived from a controlled disease model experiment; to investigate this, I used the rlog-normalized counts to compute correlations, sample-sample distances, performed PCA, and plotted the results. 
+
+## DIFFERENTIAL GENE EXPRESSION ANALYSIS
+
+To prepare for differential gene expression analysis, I first re-ordered the levels of my condition factor to ensure that the fold change will be calculated using the vehicle condition as the baseline. I also checked that the contrast was set up correctly such that condition was modeled as a fixed effect. After the preparation steps were complete, I performed differential gene expression analysis on the count data using the DESeq function. After running DESeq, I took a look at the raw p-values (Figure 13). 
+
+
+### Figure 13. Raw p-Values
+
+![](/Users/sophiahoward/Desktop/angsd/raw p-values.png)
+
+Figure 13 shows a uniform distribution of p-values across most of the range, which is common when many tests do not show significant differences. However, there's a substantial peak near p-value 1. 
+
+When performing RNA-seq analysis, it is possible to obtain many false positive results simply by chance. Also, for RNA-seq, it is thought that genes with very low read counts can be ignored for downstream analyses as their read counts are often too unreliable and variable to be accurately assessed with only 3-5 replicates. For these reasons, I decided to use the results function of DESeq2 to filter out the genes with very low read counts for my downstream analysis. More specifically, I used the results function with an alpha of 0.05 the independentFiltering feature set to TRUE; together, this will reduce the number of hypotheses tested and filter out genes that are unlikely to reach statistical significance due to low counts.Out of 30840 with nonzero total read count, 2072 genes met the adjusted p-value cutoff of < 0.05. 
+
+Once I had extracted the test results, I needed to ensure that the results made sense. To assess the differential expression results I first made a histogram of the adjusted p-values. 
+
+### Figure 14. Adjusted p-Values
+![](/Users/sophiahoward/Desktop/angsd/Adjusted p-values.png)
+
+As can be seen in Figure 14, the distribution is more as expected after adjustment for multiple comparisons. The high frequency at the higher p-values (near 1) has diminished. Instead, there is now a spike at the lower p-values (near 0). 
+
+I also generated two heatmaps of the genes that show differential expression with adjusted p-value <0.05 (Figures 15-16).
+
+### Figure 15. DGE Heatmap (no scaling)
+![](/Users/sophiahoward/Desktop/angsd/DGE Heatmap no scaling.png)
+
+The heatmap in Figure 15 represents the expression data without any scaling. The colors indicate the expression level of each gene in each sample, with darker colors representing higher expression levels. However, without scaling, this type of heatmap can be dominated by a few genes with very high expression. 
+
+### Figure 16. DGE Heatmap (row based z-score)
+![](/Users/sophiahoward/Desktop/angsd/DGE Heatmap row based z-score.png)
+
+The heatmap in Figure 16 applies a row-based z-score transformation to the data, which normalizes the expression levels of each gene across the samples. In this heatmap, the colors represent the number of standard deviations away from the mean expression of each gene: red indicates higher expression than the mean, blue indicates lower expression, and colors closer to white indicate expression levels close to the mean. This heatmap allows for comparison of expression patterns across genes because it accounts for differences in the overall expression levels of each gene. In the z-score normalized heatmap, bands of red or blue across samples indicate genes that are consistently up- or down-regulated across conditions. This normalization helps to identify genes that are differentially expressed regardless of their absolute expression levels. The heatmap includes dendrograms along the axes, which indicate clustering based on expression similarity. Genes that have similar expression profiles across samples are clustered together, as are samples with similar expression profiles across genes.
+
+I next plotted an MA-plot and a volcano plot. The MA plot provides a global view of the differential genes, with the log2 fold change on the y-axis over the mean of normalized counts (Figure 17). The volcano plot demonstrates the relationship between the (adjusted) p-value and the log2-FC (Figure 18).
+
+### Figure 17. MA Plot
+![](/Users/sophiahoward/Desktop/angsd/MA plot.png)
+
+Genes that pass the significance threshold (adjusted p.value <0.05) are colored in blue. As can be seen in Figure 17, there are more genes found to be differentially expressed as you move towards the right hand side of the plot (more strongly expressed genes).
+
+### Figure 18. Volcano Plot
+![](/Users/sophiahoward/Desktop/angsd/Volcano.png)
+These plots permit one to observe where genes fall within the spectrum of differentially expressed genes. 
+
+Fold changes of genes with low and/or noisy expression values tend to be unreliable and often inflated. To address this potential issue, I used DESeq2's function to shrink the logFC estimates for lowly and noisily expressed genes towards zero, therefore reducing their importance for any subsequent downstream analyses. I then re-plotted the MA-plot (Figure 17) and the volcano plot (Figure 18) with the logFC shrinkage.
+
+### Figure 17. MA Plot with logFC Shrinkage
+![](/Users/sophiahoward/Desktop/angsd/MAlogFCshrinkage.png)
+
+### Figure 18. Volcano Plot with logFC Shrinkage
+![](/Users/sophiahoward/Desktop/angsd/VolcanowithlogFCshrinkage.png)
+
+As can be seen in Figures 17 and 18, logFC shrinkage appears to have successfully addressed the fold changes of genes with low and/or noisy expression values. 
+
+## OVER-REPRESENTATION ANALYSIS AND GSEA
+
+I ran differential gene expression and filtered my results to only include those whose adjusted p-values (after multiple hypothesis correction) pass the statistical threshold of 0.05 (differentially expressed genes). I prepared a vector of the differentially expressed genes (`DGE_genes`) and then performed GO term enrichment analysis. I specified that the GO term enrichment analysis function should consider all three main GO categories: Biological Process (BP), Cellular Component (CC), and Molecular Function (MF). I specified the parameters to define the minimum and maximum size for the gene sets to be considered in the enrichment analysis; gene sets with fewer than 3 genes or more than 800 genes were excluded. This helps to focus on GO terms that are neither too specific nor too broad. Only GO terms with a p-value less than 0.05 were considered significantly enriched. I specified the Benjamini-Hochberg method for adjusting p-values to account for multiple testing. I used the org.Hs.eg.db Genome wide annotation for human, primarily based on mapping using Entrez Gene identifiers. Next, I explored the data frame of enriched GO terms and generated plots using REVIGO. 
+
+For GSEA, I prepared the full list of all genes that I analyzed sorted by logFC (`DGE_results`). I then performed GSEA to compare this sorted vector of gene-value pairs to the pathways from your selected database (org.Hs.eg.db) and those pathways that seem to have a consistent enrichment for positive (or negative) fold changes across all of the pathway's genes will be highlighted. I specified that the GSEA  function should consider all three main GO categories: Biological Process (BP), Cellular Component (CC), and Molecular Function (MF). I specified the parameters to define the minimum and maximum size for the gene sets to be considered in the enrichment analysis; gene sets with fewer than 3 genes or more than 800 genes were excluded. This helps to focus on GO terms that are neither too specific nor too broad. Only genes with a p-value less than 0.05 were considered significantly enriched. I specified the Benjamini-Hochberg method for adjusting p-values to account for multiple testing. 
+
+
+
+
+# RESULTS 
+
+## EXPLORATORY DATA ANALYSIS
+
+Computing correlations, sample-sample distances of rlog-normalized counts, and plotting the results as a heatmap revealed a clear separation between the Vehicle and Irinotecan samples (Figure 13). 
+
+### Figure 19. Correlation Heatmap
+
+![](/Users/sophiahoward/Desktop/angsd/Correlation Heatmap.png)
+
+PCA was performed on a subset of the highest variance genes (500 most variable genes). PC1 was found to separate the two genotypes relatively strongly, comprising 69% of the total variance across samples. As expected, samples of the same condition appeared to cluster together and separate relatively cleanly in the first few PCs (Figure 14-15).
+
+### Figure 20. Principal Component Analysis
+![](/Users/sophiahoward/Desktop/angsd/PCA on 500 Most Variable Genes.png)
+
+### Figure 21. Principal Component Analysis on the genes
+![](/Users/sophiahoward/Desktop/angsd/genesPca.png)
+
+## OVER-REPRESENTATION ANALYSIS AND GENE SET ENRICHMENT ANALYSIS
+
+The GO term enrichment analysis revealed there to be 245 enriched terms. Tables with all of the the cluster representatives and cluster members (indented smaller cursive text) of the enriched GO terms for each of the three main GO categories (BP, CC, MF) are included in the Git repository for this project. A summary of the cluster representatives of the enriched GO terms joined into several very high-level groups can be seen in Figures 22-24. 
+
+MAKE TABLE OF TOP GO TERMS FOR EACH CATEGORY 
+
+### Figure 22.  Tree Map of Molecular Function GO Term Enrichment (REVIGO)
+![](/Users/sophiahoward/Desktop/angsd/Molecular Function Tree Map.png)
+
+### Figure 23. Tree Map of Biological Processes GO Term Enrichment (REVIGO)
+![](/Users/sophiahoward/Desktop/angsd/BP Tree Map.png)
+
+### Figure 24. Tree Mpa of Cellular Components GO Term Enrichment (REVIGO)
+![](/Users/sophiahoward/Desktop/angsd/Cellular Components Tree Map.png)
+GSEA revealed there to be 40 enriched terms. A summary of enrichment scores and gene counts per gene set (for the most significant gene sets) can be seen in Figure 25. 
+
+### Figure 25. Dotplot of GSEA Enrichment Scores and Gene Counts per Gene Set*
+![*for the most significant gene sets](/Users/sophiahoward/Desktop/angsd/Dotplot GSEA.png)
+
+----------
+# APPENDIX
+
+![Supplemental Figure 1. Samtools stats: Alignment Scores MultiQC ](/Users/sophiahoward/Desktop/angsd/samtools_alignment_plot.png)
+
+
+![Supplemental Figure 2. Samtools stats: Alignment Metrics MultiQC Metrics](/Users/sophiahoward/Desktop/angsd/Alignment Metrics MSIV.png)
+
+
+![Supplemtal Figure 3. STAR: Alignment Scores MultiQC](/Users/sophiahoward/Desktop/angsd/STAR Alignment Scores MSIV.png)

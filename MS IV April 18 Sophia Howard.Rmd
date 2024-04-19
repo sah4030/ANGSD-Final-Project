@@ -359,7 +359,6 @@ scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/an
 ![](/Users/sophiahoward/Desktop/angsd/Samtools Flagstat.png)
 ![](/Users/sophiahoward/Desktop/angsd/STAR Alignment Scores MSIV.png)
 
-
 ### STEP 4: Performing alignment QC with RSeQC: Read distribution
 MANE (hg38_MANE.bed.gz)
 ```{bash read distribution, eval = FALSE}
@@ -464,19 +463,6 @@ qorts QC \
 
 ```
 
-```{bash qorts with other file, eval=FALSE}
-mamba activate qorts
-
-export _JAVA_OPTIONS="-Xmx4G"
-
-qorts QC \
-    --maxReadLength 150 \
-    /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Irinotecan_Rep_1.Aligned.sortedByCoord.out.bam \
-    /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Homo_sapiens.GRCh38.111.gtf \
-    /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/QC_QoRTs_Irinotecan_Rep_1
-```
-
-
 ## From Raw Read Counts to Relative Expression Strength Measures: Normalizing Read Counts
 
 ### STEP 1: Running feature counts for paired ends reads
@@ -487,23 +473,6 @@ mamba activate angsd
 cd /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV  
 
 featureCounts -a /athena/angsd/scratch/sah4030/angsd_homework/Project/hg38.knownGene.gtf -o Project_fc.txt -p *.Aligned.sortedByCoord.out.bam --countReadPairs
-```
-
-```{bash feature counts annotation, eval=FALSE}
-cd /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV  
-
-wget https://ftp.ensembl.org/pub/release-111/gtf/homo_sapiens/Homo_sapiens.GRCh38.111.gtf.gz
-
-gunzip Homo_sapiens.GRCh38.111.gtf.gz
-
-srun -n1 --pty --partition=angsd_class --mem=4G bash -i
-mamba activate angsd
-
-featureCounts -a /athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Homo_sapiens.GRCh38.111.gtf -o Project_featureCounts.txt -p *.Aligned.sortedByCoord.out.bam --countReadPairs
-
-exit
-
-scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/alignReads_MSIV/Project_featureCounts.txt ~/Desktop/angsd/MSIV
 ```
 
 
@@ -569,7 +538,7 @@ According to ?colData, this should be a data.frame, where the rows directly matc
 ```{r coldata, eval=FALSE}
 # let's use the info from our df_counts object
 df_coldata <- data.frame(condition = gsub("_[0-9]+", "", colnames(cts_gene_sample)), row.names = colnames(cts_gene_sample))
-#df_coldata
+df_coldata
 str(df_coldata)
 ```
 
@@ -821,6 +790,10 @@ The DESeq2::plotPCA function will automatically compute PCA on a default of 500 
 plotPCA(dst_rlog) + labs(color=NULL) + theme_bw()
 ```
 Here we see PC1 strongly separates the two genotypes, comprising 72% of the total variance across samples (in the top 500 variable genes).
+
+```{r pca explore, eval=FALSE}
+pcaExplorer::pcaExplorer(dds=dds_Project, dst=dst_rlog)
+```
 
 
 ## Performing differential gene expression analysis
