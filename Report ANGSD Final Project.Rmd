@@ -1,0 +1,460 @@
+---
+title: "Irinotecan-Induced TOP1 Inhibition Upregulates Translation-Related Genes and Downregulates Inflammatory and Immune Response-Related Genes in Patient Derived Xenograft Models of Pancreatic Cancer"
+subtitle: "ANGSD Final Report"
+author: "Sophia Howard"
+date: "2024-04-23"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    toc: true
+    toc_depth: 3
+---
+# INTRODUCTION
+Camptothecin (CPT) was first isolated from the stem wood of *Camptotheca acuminate*, commonly known as the “Chinese Happy Tree,” by botanists at the USDA’s Plant Introduction Division in the mid-1950’s (Wall et al., 1966). This tree bark had been recognized for generations in Traditional Chinese Medicine as a natural cancer remedy (Li et al., 2017). In the late 1950s to early 1970s, CPT was chemically synthesized and pre-clinical and clinical studies were conducted in the United States (Li et al., 2017). CPT demonstrated substantial anti-tumor activity in standard in vitro test systems as well as in a mouse leukemia model(Martino et al., 2017). However, CPT presented critical challenges for drug development such as poor stability, poor solubility, unpredictable adverse drug-drug interactions, and high toxicity(Li et al., 2017; Martino et al., 2017).
+
+Due to the focus of DNA topoisomerase 1 (TOP1) as a cellular target in the late 1980s, interest in CPTs as a therapeutic rapidly grew (Martino et al., 2017). In the cell, TOP1 relaxes supercoiled DNA by introducing single-stranded nicks and then reanneals the strand. CPT and CPT analogues inhibit TOP1 activity by binding to the TOP1/DNA covalent complex and preventing both the re-ligation of nicked DNA and the dissociation of TOP1 from the DNA (Li et al., 2017). The formation of this complex prevents the replication fork from forming, resulting in DNA double-stranded breaks and subsequent cell death (Li et al., 2017).
+
+### Figure 1. Mechanism of Action of Camptothecin (Kacprzak, 2013)
+
+![](/Users/sophiahoward/Desktop/Mechanism of Action of CPT.png)
+
+
+Irinotecan (CPT-11) is a water-soluble and semi-synthetic prodrug derived from camptothecin. To develop CPT-11, a bis-piperidine group was added to a camptothecin derivative (SN38) via an ester linkage (Sapra et al., 2008). In the body, enzyme carboxylersterase-2 removes the bis-piperdine group, thereby producing 1-hydroxy-ethyl-camptothecin (SN38), the active ingredient of CPT-11 (Sapra et al., 2008). SN38 is 100- to 1000-fold more cytotoxic in vitro than is CPT-11 (Chabot, 1997). Irinotecan is FDA-approved as both a free drug (e.g. Camptosar® and generic CPT-11 (irinotecan hydrochloride injection) and a liposome-encapsulated drug (Onivyde®) for advanced colorectal and pancreatic cancer, respectively, and is frequently used off-label to treat recurrent/refractory solid tumors (Bailly, 2019). 
+
+### Figure 2. Curran's Modular Strategy of CPT Synthesis (Kacprzak, 2013)
+
+![](/Users/sophiahoward/Desktop/CPT Synthesis.png)
+
+Pancreatic cancer (pancreatic ductal adenocarcinoma [PDAC]) is the fourth-leading cause of cancer death in the United States with an incidence of 62,210 and 49,830 pancreatic-cancer related deaths in the United States in 2022 (McGuigan et al., 2018). Despite developments in detection and management, the five-year survival of PDAC has only reached about 11.5% for all stages and 3.1% for metastatic disease (McGuigan et al., 2018; Cameron et al., 2023). Irinotecan is currently used to treat PDACs as part of the FOLFIRINOX (fluorouracil, irinotecan, and oxaliplatin) drug cocktail (McGuigan et al., 2018). Despite its wide use and established anticancer activity, irinotecan continues to present major limitations for pancreatic cancer patients. The current study aims to investigate the effect of TOP1 inhibition on the levels of other genes in the pancreatic cancer cell. Understanding the effect of irinotecan-induced TOP1 inhibition on pancreatic cell genes could provide valuable insight into how TOP1-targeted therapies interact with cellular networks, potentially identifying new therapeutic targets and enhancing the strategic design of combination treatments to increase treatment efficacy in pancreatic cancer.
+
+# MATERIALS AND METHODS
+
+## STUDY DESIGN
+The objective of this study was to test inhibition of TOP1 in patient derived xenograft (PDX) models of PDAC to determine whether treatment with irinotecan affects the levels of other genes in the pancreatic cancer cell. I hypothesized that the expression of TOP1 will affect the levels of other genes in the topoisomerase I pathway in pancreatic cancer cells. 
+
+I obtained samples from Gene Expression Omnibus that were generated in the lab of Laura Baranello in the Cell and Molecular Biology Department of the Karolinska Institute in Stockholm, Sweden for the following study: 
+
+Cameron DP, Grosser J, Ladigan S, Kuzin V et al. Coinhibition of topoisomerase 1 and BRD4-mediated pause release selectively kills pancreatic cancer via readthrough transcription. Sci Adv 2023 Oct 13;9(41):eadg5109. PMID: 37831776
+
+## SAMPLE GENERATION
+The PDX mouse model was established using surgically resected PDAC tissues collected from patients at the Ruhr-University Bochum Comprehensive Cancer Center. Informed and written consent was obtained from all patients. The ethics committee of the Ruhr University Bochum approved this study (permission nos. 3534-09, 3841-10, and 16-5792). Patient tumor tissues were xenografted in both flanks of nude mice (NMRI- Foxn1nu/Foxn1nu, Janvier, St Berthevin Cedex, France), expanded, isolated, and reimplanted for at least three generations. Five- to 10- week-old mice were housed under specific pathogen-free conditions where light, temperature (+21°C), and relative humidity (50 to 60%) were controlled. Food and water were available ad libitum. All animal experiments were approved by the local authorities (81-02.04.2017.A423) and performed in accordance with the guidelines for Ethical Conduct in the Care and Use of Animals. 
+
+To establish treatment cohorts, tumor pieces (1-2 mm) from early passage PDXs were soaked in undiluted Matrigel (Becton Dickinson) for 15-30 minutes and subsequently implanted subcutaneously into female mice (NMRI-Foxn1nu/Foxn1nu, Janvier, St. Berthevin Cedex, France) at two sites (scapular region) using as many as four pieces per site. Once the tumors grew to a size of approximately 100-200 mm3, mice were randomized to receive the treatment or a vehicle control (N=5-6 mice/group). Mice were treated daily with irinotecan intraperitoneally three times per week (Monday, Wednesday, and Friday) at 15 mg/kg, followed by 1 week of treatment pause for two consecutive cycles.
+
+In order to harvest RNA for sequencing, the PDX samples were taken from storage at -80°C and broken apart in liquid nitrogen with a mortar and pestle. The tumor fragments were then weighed and homogenized in either TRIzol reagent using a rotor stator instrument or crushing in the mortar and pestle with a buffer from the AllPrep DNA/RNA Mini Kit (QIGEN, 80204). RNA was extracted using the TRIzol (Invitrogen, 15596018) or AllPrep kits. Afterward, 500 ng of RNA per sample was processed using the RiboCop kit (Lexogen, 037) for rRNA removal.
+
+RNA extracted from the PDXs was quantified with the Qubit RNA nano Assay Kit (Thermo Fisher Scientific, Q33230). Libraries were created according to the CORALL kit protocol (Lexogen, 095). Library preparation success was confirmed using the Agilent High Sensitivity DNA Kit (Agilent, 5067-4626) on the Agilent 2100 Bioanalyzer. Libraries were pooled and sequenced using the NextSeq 500/550 High Output Kit v2.5 (Illumina, 20024906). The sequencing run was paired end and dual index with 75-bp reads each. 
+
+#### NOTE: Please see the 'Methods ANGSD Final Project.Rmd' file in the Git Repository for an expanded methods section with all relevant code and outputs. 
+
+## DATA DOWNLOAD AND PRE-PROCESSING
+I used the SRA-toolkit to download the FASTQ files for my samples of interest (SRR21106059, SRR21106060, SRR21106063, and SRR21106064). The conditions and replicate numbers of the samples can be seen in the following table: 
+
+### Table 1. Sample Conditions and Replicate Numbers
+
+|  **Sample** | **Condition** | **Replicate** |
+|:-----------:|:-------------:|:-------------:|
+| SRR21106059 |    Vehicle    |       2       |
+| SRR21106060 |    Vehicle    |       1       |
+| SRR21106063 |   Irinotecan  |       2       |
+| SRR21106064 |   Irinotecan  |       1       |
+
+Once downloaded, I renamed the FASTQ files to reflect their condition and replicate number. 
+
+I performed FastQC on each of the original FASTQ files to assess the sequencing data quality. Initial FastQC results demonstrated poor quality in sequence duplication levels and per base sequence content. High sequence duplication levels suggest potential PCR artifacts or over-amplification. Deviations in per base sequence content may indicate biases in the sequencing process. Based on these results, I decided to perform adapter trimming. 
+
+I performed TrimGalore to trim my FASTQ files. I chose to include 2 bp as the minimum required adapter overlap (stringency) instead of 1 bp; increasing the minimum required adapter overlap can improve the accuracy of adapter trimming by requiring a greater overlap between the adapter sequence and the read sequence and subsequently reducing the likelihood of erroneously trimming adapter sequences from reads that are not actually adapters. After the completion of Trim Galore, I re-ran FastQC on the trimmed FASTQ files to confirm that the data quality had improved. 
+
+## SAMPLE ALIGNMENT 
+Once the FASTQ files had been processed and were confirmed to be of good quality, I created a genome index to establish the suffix array and related indices.To do so, I downloaded the human reference genome (Homo_sapiens.GRCh38.dna.primary_assembly.fa) and its annotation (Homo_sapiens.GRCh38.111.gtf) from Ensembl, wrote a batch script to generate the index, and created a directory for the index. 
+
+After the index generation was complete, I aligned each sample to the index. I included several parameters. ‘--outFilterMultimapNmax 1.’  This parameter specifies the max number of multiple alignments allowed for a read. By setting this parameter to 1 I am ensuring that each read is assigned to only one genomic location, even if it aligns equally well to multiple locations. ‘--alignIntronMin 20’ This parameter specifies the minimum allowed length of an intron. It sets the smallest size of an intron that STAR will attempt to align. Setting this value too low might result in STAR failing to detect very short introns, while setting it too high might lead to increased computational time and memory usage.The average intron length in humans is around 5-10 kb, although this number greatly varies, with introns ranging from a few hundred base pairs to tens of thousands of base pairs.I decided to set it to around 20 base pairs to allow for the detection of relatively short introns. ‘--alignIntronMax 200000’ This parameter specifies the maximum allowed length of an intron. It sets the upper limit for the size of introns that STAR will attempt to align. Setting this value too low might result in missing alignments for longer introns, while setting it too high might lead to increased computational time and memory usage as STAR tries to align very long introns. I decided to set it to 200,000 base pairs to accommodate the longest expected introns in the human genome. ‘--outSAMattributes NH HI NM MD AS nM: Specifies which information to include in the optional SAM attribute. NH: Number of reported alignments that contain the query in the current record. This field is useful for detecting multimapping reads. HI: SAM attribute representing the hit index (alignment sequence position) of the alignment. It's used to distinguish alignments that originate from the same query sequence but map to different locations in the reference genome. NM: Edit distance (number of mismatches) between the aligned sequence and the reference sequence. This field provides information about the number of differences between the aligned read and the reference genome. MD: String representation of the alignment details, indicating the differences between the read and the reference sequence (mismatches, insertions, deletions). AS: Alignment score, which represents the quality of the alignment. It's a numeric value calculated by the aligner based on various factors such as match/mismatch scores, gap penalties, etc. nM: SAM attribute indicating the edit distance normalized by the length of the alignment. It's similar to NM, but the edit distance is normalized by the alignment length, providing a measure of the mismatch rate.
+
+## QUALITY CONTROL OF ALIGNMENT
+Once the alignments were complete, I used samtools to access, view, sort, and manipulate the BAM files that contain the aligned reads. I also performed some basic quality control (QC) using samtools (flagstat and stats). I next used the Quality of RNA-seq Tool-Set (QoRTs) to perform quality control and determine the stradedness of my samples. According to the QoRTs output summary file, the strandedness of my samples did not appear to match the strandedness mode. As such, I determined my samples to be unstranded. I used MultiQC to view visual representations of my QoRTs QC results. Figures 3-6 represent the QoRTs-determined Alignment Locations, Splice Loci, Splice Events, and Strand Test results, respectively. I performed MultiQC to aggregate and visualize the descriptive and QC information I had generated at that point. Table 2 summarizes the sequencing and alignment quality metrics for each sample processed in the study. 
+
+----------
+
+### Table 2. General Statistics MultiQC
+
+| Sample Name      | Error rate | M Non-Primary | M Mapped Reads | % Mapped  | % Proper Pairs | M Total Seqs | M Reads Mapped | % Aligned | M Aligned |
+|------------------|------------|---------------|----------------|-----------|----------------|--------------|----------------|-----------|-----------|
+| Irinotecan_Rep_1 | 0.29%      | 0.0           | 74.1           | 100.0%    | 100.0%         | 74.1         | 74.1           | 80.8%     | 37.1      |
+| Irinotecan_Rep_2 | 0.41%      | 0.0           | 59.8           | 100.0%    | 100.0%         | 59.8         | 59.8           | 83.0%     | 29.9      |
+| Vehicle_Rep_1    | 0.36%      | 0.0           | 61.2           | 100.0%    | 100.0%         | 61.2         | 61.2           | 83.5%     | 30.6      |
+| Vehicle_Rep_2    | 0.31%      | 0.0           | 77.4           | 100.0%    | 100.0%         | 77.4         | 77.4           | 85.0%     | 38.7      |
+
+Legend:
+
+-Error Rate: The percentage of bases that were incorrectly sequenced or aligned, calculated as the number of mismatches divided by the total number of aligned bases.
+
+-M Non-Primary: The number of secondary alignments in millions, indicating reads that could align to more than one genomic location.
+
+-M Mapped Reads: The total number of reads successfully mapped to the reference genome, in millions.
+
+-% Mapped: The percentage of total reads that were successfully mapped to the reference genome.
+
+-% Proper Pairs: The percentage of read pairs where both reads in the pair align correctly and in the proper orientation relative to each other.
+
+-M Total Seqs: The total number of sequencing reads generated for the sample, in millions.
+
+-M Reads Mapped: The number of reads mapped to the reference genome, in millions.
+
+-% Aligned: The percentage of total reads that align to the reference genome with a quality score meeting the threshold for reliable alignments.
+
+-M Aligned: The number of reads, in millions, that met the quality threshold for alignment and were used in subsequent analysis.  
+
+-------------------
+
+### Figure 3. QoRTs: Alignment Locations
+![This plot displays the rate for which the sample's read-pairs are assigned to the different categories.](/Users/sophiahoward/Desktop/angsd/Final/qorts_alignments.png)
+
+----------
+
+### Figure 4. QoRTs: Splice Loci
+![This plot shows the number of splice junction loci of each type that appear in the sample's reads.](/Users/sophiahoward/Desktop/angsd/Final/qorts_splice_loci.png)
+
+----------
+
+### Figure 5. QoRTs: Splice Events
+![This plot shows the number of splice junction events falling into different junction categories.](/Users/sophiahoward/Desktop/angsd/Final/qorts_splice_events.png)
+
+
+----------
+
+### Figure 6. QoRTs: Strand Test
+![This plot shows the rate at which reads appear to follow different library-type strandedness rules.](/Users/sophiahoward/Desktop/angsd/Final/qorts_strand_test.png)
+
+----------
+
+As can be seen in Table 1, the percentage of total reads that align to the reference genome with a quality score meeting the threshold for reliable alignments was approximately 80-85%. Overall, quality control revealed the alignment to be of relatively good quality and to have produced data that were sufficient for downstream analysis. 
+
+## GENE EXPRESSION QUANTIFICATION
+
+As a next step I performed featureCounts to generate quantitative measurements of each gene's expression strength. I used the hg38 annotation file (Homo_sapiens.GRCh38.111.gtf) and grouped the counts by the gene_id attribute from the GTF file (-g gene_id flag). 
+
+Following read alignment and counting, I had quantitative measurements of each gene's expression strength. I then read the raw read counts into R to normalize the samples for differences in their sequence depth. As a first step, I  generated a DESeqDataSet, which is a specific R object class that combines data.frames and one or more matrices into one object. The data.frames generally contain metadata about the samples and genes, while the matrices contain the expression values. I made a colData table with all of the variables that I know about my samples with row.names that correspond to the unique sample names. I also  made a countData table with a matrix of the actual values associated with the genes and samples. The number of reads that were sequenced for each read can be seen in Figure 7. 
+
+### Figure 7. Number of Reads that Were Sequenced for Each Eample 
+![](/Users/sophiahoward/Desktop/angsd/Library Sizes.png)
+
+I next filtered out any genes that had no reads. This filtering was also translated to the count matrix that I store in that object (and all other matrices stored in the assay slot).
+
+## READ COUNT NORMALIZATION
+
+Once the raw count data were properly prepared, I used DESeq2’s functions for sequencing depth normalization to eliminate systematic effects that are not associated with the biological differences of interest. I used the estimateSizeFactors function to calculate and apply the size factor. The estimateSizeFactors function makes the following assumptions: 1) most genes are not changing across conditions; 2) size factors should be around 1; and 3) normalized counts are calculated as so, (countsgeneX,sampleA/sizefactorsampleA).
+
+### Figure 8. Size Factor
+![](/Users/sophiahoward/Desktop/angsd/Size Factor.png)
+
+To check whether the normalization helped adjust global differences between the samples, I next plotted boxplots of the raw read counts and the normalized size factor counts. Since the read counts cover several orders of magnitude, however, I found it hard to observe a difference between the raw and normalized data (Figure 8). 
+
+### Figure 9. Raw Read Counts vs Normalized Size Factor Counts
+![](/Users/sophiahoward/Desktop/angsd/boxplot.png)
+
+I log2-transformed the normalized read counts to compact the range and bring it closer to normally distributed values and then made a box plot of non-normalized log2-transformed read counts and a box plot of normalized log2-transformed read counts (Figure 9).
+
+### Figure 10. Raw Read Counts vs Normalized Size Factor Counts: Log2-Transformed
+![](/Users/sophiahoward/Desktop/angsd/log2-transformed read counts.png)
+In both the non-normalized and normalized box plots (Figure 10), the interquartile ranges (IQRs) appear to be similar across samples, indicating that the central 50% of the data (from the 25th to 75th percentiles) are within the same range of values. However, the range (distance from the lowest to the highest value, including outliers) seems to be slightly reduced in the normalized box plot, which suggests that size-factor normalization has helped to bring the counts from all samples onto a more comparable scale. 
+
+Next, to see how well the actual values correlated with each other per sample and gene, I plotted scatterplots of log normalized counts (Figure 11; each dot represents one gene).  
+
+### Figure 11. Log Normalized Counts
+![](/Users/sophiahoward/Desktop/angsd/log normalized counts Scatterplot.png)
+
+In the scatterplot, I noticed that points in the lower left corner fanned out. This observation indicated that the standard deviation of the expression levels may depend on the mean, where a lower mean read counts per gene has a higher standard deviation (Figure 11).
+
+I plotted a MeanSdPlot to further investigate this variance-mean dependence (Figure 12).
+
+### Figure 12. Variance-Mean Dependence
+![](/Users/sophiahoward/Desktop/angsd/Sequencing depth normalized log2(read counts).png)
+
+In Figure 12, the red line depicts the running median estimator (window-width 10 percent) where a horizontal line would indicate the absence of a variance-mean dependence.The plot indicates that there is some variance-mean dependence for genes with low read counts, which suggests that the data show signs of heteroskedasticity.
+
+To address this heteroskedasticity, I next worked to reduce the dependence of the variance on the mean. I used DESeq's method of rlog to shrink the log-transformed counts for genes with very low counts, as it is an optimized method for RNA-seq read counts. Rlog transforms the read counts to the log2 scale while simultaneously minimizing the difference between samples for rows with small counts and taking differences between library sizes of the samples into account. More specifically, the expression values are modeled such that that their dispersion is not based on the actual variability of an individual gene across its replicates but instead is based on the general dispersion-mean trend over the entire data set. Importantly, DESeq2 assumes that “genes of similar average expression strength have similar dispersion,” which allows the estimation of noise to be based on a much larger data universe than what would normally provided by the original number of replicates. The results of the rlog transformation of the Irinotecan condition can be seen in Figure 13.  
+
+
+### Figure 13. Rlog Reduced Dependence of Variance on Mean
+![](/Users/sophiahoward/Desktop/angsd/Reducing dependence of variance on mean.png)
+
+-------- 
+
+
+### Figure 14. Rlog Reduced Dependence of Variance on Mean (MeanSD Plot)
+![](/Users/sophiahoward/Desktop/angsd/MeanSdPlot Following rlog transformation.png)
+
+As can be seen in Figure 13, the variance that is higher for small read counts (left plot) is tightened significantly using rlog (right plot). In Figure 14, the red line representing the running median estimator is nearly horizontal, indicating that the rlog transformation reduced the variance-mean dependence. 
+
+At this point, I have performed normalization to adjust for differences in sequencing depth, differences in RNA composition, heteroskedasticity, and a large dynamic range. As such, my normalized data were more realistic representations of relative expression strengths of genes and they can now be used for exploratory analyses. 
+
+## EXPLORATORY DATA ANALYSIS
+
+A useful quality control for RNA-seq data once in the form of feature-by-sample counts is to check the global similarity of samples. Ideally, the biological replicates in an experiment will be most similar to those in the same condition. This should be true of my samples as they were derived from a controlled disease model experiment; to investigate this, I used the rlog-normalized counts to compute correlations, sample-sample distances, performed PCA, and plotted the results (Figures 23-25). 
+
+## DIFFERENTIAL GENE EXPRESSION ANALYSIS
+
+To prepare for differential gene expression analysis, I first re-ordered the levels of my condition factor to ensure that the fold change will be calculated using the vehicle condition as the baseline. I also checked that the contrast was set up correctly such that condition was modeled as a fixed effect. After the preparation steps were complete, I performed differential gene expression analysis on the count data using the DESeq function. After running DESeq, I took a look at the raw p-values (Figure 15). 
+
+
+### Figure 15. Raw p-Values
+
+![](/Users/sophiahoward/Desktop/angsd/raw p-values.png)
+
+
+When performing RNA-seq analysis, it is possible to obtain many false positive results simply by chance. Also, for RNA-seq, it is thought that genes with very low read counts can be ignored for downstream analyses as their read counts are often too unreliable and variable to be accurately assessed with only 3-5 replicates. For these reasons, I decided to use the results function of DESeq2 to filter out the genes with very low read counts for my downstream analysis. More specifically, I used the results function with an alpha of 0.05 the independentFiltering feature set to TRUE; together, this will reduce the number of hypotheses tested and filter out genes that are unlikely to reach statistical significance due to low counts.Out of 30840 with nonzero total read count, 2072 genes met the adjusted p-value cutoff of < 0.05. 
+
+Once I had extracted the test results, I needed to ensure that the results made sense. To assess the differential expression results I first made a histogram of the adjusted p-values. 
+
+### Figure 16. Adjusted p-Values
+![](/Users/sophiahoward/Desktop/angsd/Adjusted p-values.png)
+
+As can be seen in Figure 16, the distribution is more as expected after adjustment for multiple comparisons. The high frequency at the higher p-values (near 1) has diminished. Instead, there is now a spike at the lower p-values (near 0). 
+
+I also generated two heatmaps of the genes that show differential expression with adjusted p-value <0.05 (Figures 17-18).
+
+### Figure 17. DGE Heatmap (no scaling)
+![](/Users/sophiahoward/Desktop/angsd/DGE Heatmap no scaling.png)
+
+The heatmap in Figure 17 represents the expression data without any scaling. The colors indicate the expression level of each gene in each sample, with darker colors representing higher expression levels. However, without scaling, this type of heatmap can be dominated by a few genes with very high expression. 
+
+### Figure 18. DGE Heatmap (row based z-score)
+![](/Users/sophiahoward/Desktop/angsd/DGE Heatmap row based z-score.png)
+
+The heatmap in Figure 18 applies a row-based z-score transformation to the data, which normalizes the expression levels of each gene across the samples. In this heatmap, the colors represent the number of standard deviations away from the mean expression of each gene: red indicates higher expression than the mean, blue indicates lower expression, and colors closer to white indicate expression levels close to the mean. This heatmap allows for comparison of expression patterns across genes because it accounts for differences in the overall expression levels of each gene. In the z-score normalized heatmap, bands of red or blue across samples indicate genes that are consistently up- or down-regulated across conditions. This normalization helps to identify genes that are differentially expressed regardless of their absolute expression levels. The heatmap includes dendrograms along the axes, which indicate clustering based on expression similarity. Genes that have similar expression profiles across samples are clustered together, as are samples with similar expression profiles across genes.
+
+I next plotted an MA-plot and a volcano plot. The MA plot provides a global view of the differential genes, with the log2 fold change on the y-axis over the mean of normalized counts (Figure 19). The volcano plot demonstrates the relationship between the (adjusted) p-value and the log2-FC (Figure 20).
+
+### Figure 19. MA Plot: Global view of the Differential Genes
+![](/Users/sophiahoward/Desktop/angsd/MA plot.png)
+
+Genes that pass the significance threshold (adjusted p.value <0.05) are colored in blue. As can be seen in Figure 19, there are more genes found to be differentially expressed as you move towards the right hand side of the plot (more strongly expressed genes).
+
+### Figure 20. Volcano Plot: Relationship Between the (adjusted) p-value and the log2-FC 
+![](/Users/sophiahoward/Desktop/angsd/Volcano.png)
+These plots permit the observation of where genes fall within the spectrum of differentially expressed genes. 
+
+Fold changes of genes with low and/or noisy expression values tend to be unreliable and often inflated. To address this potential issue, I used DESeq2's function to shrink the logFC estimates for lowly and noisily expressed genes towards zero, therefore reducing their importance for any subsequent downstream analyses. I then re-plotted the MA-plot (Figure 21) and the volcano plot (Figure 22) with the logFC shrinkage.
+
+### Figure 21. MA Plot with logFC Shrinkage
+![](/Users/sophiahoward/Desktop/angsd/MAlogFCshrinkage.png)
+
+### Figure 22. Volcano Plot with logFC Shrinkage
+![](/Users/sophiahoward/Desktop/angsd/VolcanowithlogFCshrinkage.png)
+
+As can be seen in Figures 21 and 22, logFC shrinkage appears to have successfully addressed the fold changes of genes with low and/or noisy expression values. 
+
+## OVER-REPRESENTATION ANALYSIS AND GSEA
+
+I ran differential gene expression and filtered my results to only include those whose adjusted p-values (after multiple hypothesis correction) pass the statistical threshold of 0.05 (differentially expressed genes). I prepared a vector of the differentially expressed genes (`DGE_genes`) and then performed GO term enrichment analysis. I specified that the GO term enrichment analysis function should consider all three main GO categories: Biological Process (BP), Cellular Component (CC), and Molecular Function (MF). I specified the parameters to define the minimum and maximum size for the gene sets to be considered in the enrichment analysis; gene sets with fewer than 3 genes or more than 800 genes were excluded. This helps to focus on GO terms that are neither too specific nor too broad. Only GO terms with a p-value less than 0.05 were considered significantly enriched. I specified the Benjamini-Hochberg method for adjusting p-values to account for multiple testing. I used the org.Hs.eg.db Genome wide annotation for human, primarily based on mapping using Entrez Gene identifiers. Next, I explored the data frame of enriched GO terms and generated plots using REVIGO. 
+
+For GSEA, I prepared the full list of all genes that I analyzed sorted by logFC (`DGE_results`). I then performed GSEA to compare this sorted vector of gene-value pairs to the pathways from your selected database (org.Hs.eg.db) and those pathways that seem to have a consistent enrichment for positive (or negative) fold changes across all of the pathway's genes will be highlighted. I specified that the GSEA  function should consider all three main GO categories: Biological Process (BP), Cellular Component (CC), and Molecular Function (MF). I specified the parameters to define the minimum and maximum size for the gene sets to be considered in the enrichment analysis; gene sets with fewer than 3 genes or more than 800 genes were excluded. This helps to focus on GO terms that are neither too specific nor too broad. Only genes with a p-value less than 0.05 were considered significantly enriched. I specified the Benjamini-Hochberg method for adjusting p-values to account for multiple testing. 
+
+# RESULTS 
+
+## EXPLORATORY DATA ANALYSIS
+
+Computing correlations, sample-sample distances of rlog-normalized counts, and plotting the results as a heatmap revealed a clear separation between the Vehicle and Irinotecan samples (Figure 23). 
+
+### Figure 23. Correlation Heatmap
+
+![](/Users/sophiahoward/Desktop/angsd/Correlation Heatmap.png)
+
+PCA was performed on a subset of the highest variance genes (500 most variable genes). PC1 was found to separate the two genotypes relatively strongly, comprising 69% of the total variance across samples. As expected, samples of the same condition appeared to cluster together and separate relatively cleanly in the first few PCs (Figures 24). A more detailed depiction of PCA on the genes can be seen in Figure 25. 
+
+### Figure 24. Principal Component Analysis
+![](/Users/sophiahoward/Desktop/angsd/PCA on 500 Most Variable Genes.png)
+
+### Figure 25. Principal Component Analysis on the genes
+![](/Users/sophiahoward/Desktop/angsd/genesPca.png)
+
+## OVER-REPRESENTATION ANALYSIS AND GENE SET ENRICHMENT ANALYSIS
+
+The GO term enrichment analysis revealed there to be 245 enriched terms. The top 5 most over-represented GO terms for each of the three main GO categories [Biological Processes (BP), Cellular Component (CC), and Molecular Function (MF)] can be seen in Tables 3-5. Tables with all of the the cluster representatives and cluster members of the enriched GO terms for each of the three main GO categories are included in the Git repository for this project. A summary of the cluster representatives of the enriched GO terms joined into several very high-level groups can be seen in the tree maps in Figures 26-28. 
+
+### Table 3. Top 5 most overrepresented GO terms in Biological Process (BP) ontology (Over-Representation Analysis):
+
+| ID         | Description                          | p.adjust     |
+|------------|--------------------------------------|--------------|
+| GO:0002181 | cytoplasmic translation              | 1.881938e-48 |
+| GO:0006412 | translation                          | 1.202764e-15 |
+| GO:0043043 | peptide biosynthetic process         | 7.491379e-15 |
+| GO:1903047 | mitotic cell cycle process           | 2.822486e-10 |
+| GO:0022613 | ribonucleoprotein complex biogenesis | 1.745044e-07 |
+
+### Table 4. Top 5 most overrepresented GO terms in Cellular Component (CC) ontology:
+
+| ID         | Description                       | p.adjust     |
+|------------|-----------------------------------|--------------|
+| GO:0022626 | cytosolic ribosome                | 1.701437e-44 |
+| GO:0022625 | cytosolic large ribosomal subunit | 9.252334e-29 |
+| GO:0044391 | ribosomal subunit                 | 1.854986e-28 |
+| GO:0005840 | ribosome                          | 1.854986e-28 |
+| GO:0022627 | cytosolic small ribosomal subunit | 2.147145e-21 |
+
+### Table 5. Top 5 most overrepresented GO terms in Molecular Function (MF) ontology:
+
+| ID         | Description                        | p.adjust     |
+|------------|------------------------------------|--------------|
+| GO:0003735 | structural constituent of ribosome | 2.946884e-30 |
+| GO:0005198 | structural molecule activity       | 8.438362e-14 |
+| GO:0019887 | protein kinase regulator activity  | 1.177156e-05 |
+| GO:0019207 | kinase regulator activity          | 2.472256e-05 |
+| GO:0019843 | rRNA binding                       | 1.864102e-04 |
+
+MAKE TABLE OF TOP GO TERMS FOR EACH CATEGORY 
+
+### Figure 26.  Tree Map of Molecular Function GO Term Enrichment (REVIGO)
+![](/Users/sophiahoward/Desktop/angsd/Molecular Function Tree Map.png)
+
+### Figure 27. Tree Map of Biological Processes GO Term Enrichment (REVIGO)
+![](/Users/sophiahoward/Desktop/angsd/BP Tree Map.png)
+
+### Figure 28. Tree Mpa of Cellular Components GO Term Enrichment (REVIGO)
+![](/Users/sophiahoward/Desktop/angsd/Cellular Components Tree Map.png)
+
+Gene Set Enrichment Analysis (GSEA) revealed there to be 40 enriched gene sets, which are summarized in Tables 6-8 according to ontology category. A summary of enrichment scores and gene counts per gene set (for the most significant gene sets) can be seen in Figure 25. A Gene Set Enrichment Plot of the Cytosolic Ribosome gene set (ID: GO:0022626) can be seen in Figure 26. A Gene Set Enrichment Plot of the Innate Immune Response gene set (ID: GO:GO:0045087) can be seen in Figure 30. 
+
+----------
+
+### Table 6. Enriched Gene Sets in BP ontology (GSEA):
+
+| ID         | Description                                                            | p.adjust     |
+|------------|------------------------------------------------------------------------|--------------|
+| GO:0002181 | cytoplasmic translation                                                | 6.321064e-06 |
+| GO:0140546 | defense response to symbiont                                           | 1.556834e-04 |
+| GO:0045087 | innate immune response                                                 | 1.556834e-04 |
+| GO:0045109 | intermediate filament organization                                     | 3.023508e-04 |
+| GO:0051607 | defense response to virus                                              | 3.420840e-04 |
+| GO:0045104 | intermediate filament cytoskeleton organization                        | 4.383829e-04 |
+| GO:0045103 | intermediate filament-based process                                    | 5.183396e-04 |
+| GO:0019221 | cytokine-mediated signaling pathway                                    | 3.088852e-03 |
+| GO:0034340 | response to type I interferon                                          | 4.956281e-03 |
+| GO:0042303 | molting cycle                                                          | 4.956281e-03 |
+| GO:0042633 | hair cycle                                                             | 4.956281e-03 |
+| GO:0006935 | chemotaxis                                                             | 4.956281e-03 |
+| GO:0042330 | taxis                                                                  | 4.956281e-03 |
+| GO:0032103 | positive regulation of response to external stimulus                   | 4.956281e-03 |
+| GO:0140888 | interferon-mediated signaling pathway                                  | 7.715880e-03 |
+| GO:0009615 | response to virus                                                      | 7.752387e-03 |
+| GO:0071357 | cellular response to type I interferon                                 | 8.524385e-03 |
+| GO:0050792 | regulation of viral process                                            | 1.216682e-02 |
+| GO:0001942 | hair follicle development                                              | 1.420162e-02 |
+| GO:0060337 | type I interferon-mediated signaling pathway                           | 1.518122e-02 |
+| GO:0043588 | skin development                                                       | 2.027517e-02 |
+| GO:0001816 | cytokine production                                                    | 2.027517e-02 |
+| GO:0048525 | negative regulation of viral process                                   | 2.143952e-02 |
+| GO:0060326 | cell chemotaxis                                                        | 2.203822e-02 |
+| GO:1903900 | regulation of viral life cycle                                         | 2.314897e-02 |
+| GO:0045071 | negative regulation of viral genome replication                        | 2.816837e-02 |
+| GO:0140374 | antiviral innate immune response                                       | 4.391675e-02 |
+| GO:0022404 | molting cycle process                                                  | 4.426845e-02 |
+| GO:0022405 | hair cycle process                                                     | 4.426845e-02 |
+| GO:0050911 | detection of chemical stimulus involved in sensory perception of smell | 4.616080e-02 |
+| GO:0035456 | response to interferon-beta                                            | 4.705409e-02 |
+
+--------------
+
+### Table 7. Enriched Gene Sets in CC ontology (GSEA):
+| ID         | Description                       | p.adjust     |
+|------------|-----------------------------------|--------------|
+| GO:0022626 | cytosolic ribosome                | 1.476200e-06 |
+| GO:0022625 | cytosolic large ribosomal subunit | 2.321278e-06 |
+| GO:0044391 | ribosomal subunit                 | 8.806343e-06 |
+| GO:0005840 | ribosome                          | 1.657682e-04 |
+| GO:0015934 | large ribosomal subunit           | 7.636811e-04 |
+| GO:0022627 | cytosolic small ribosomal subunit | 3.088852e-03 |
+| GO:0045095 | keratin filament                  | 1.371934e-02 |
+| GO:0005882 | intermediate filament             | 4.426845e-02 |
+
+-----------
+
+### Table 8. Enriched Gene Sets in MF ontology (GSEA):
+| ID         | Description                        | p.adjust     |
+|------------|------------------------------------|--------------|
+| GO:0003735 | structural constituent of ribosome | 2.012676e-05 |
+
+------------
+
+### Figure 29. Dotplot of GSEA Enrichment Scores and Gene Counts per Gene Set*
+![*for the most significant gene sets](/Users/sophiahoward/Desktop/angsd/Dotplot GSEA.png)
+
+In Figure 29, the dot plot contains two main columns labeled "activated" and "suppressed." Each dot represents a gene set and its position on the x-axis (GeneRatio) reflects the ratio of differentially expressed genes in that category to the total number of genes in that category. The gene sets included in the "activated" column are associated with genes that are upregulated in the experimental (irinotecan) condition. The gene sets included in the "suppressed" column are associated with genes that are downregulated in the experimental (irinotecan) condition. These results suggest that genes associated with translation / the ribosome were downregulated in the samples treated with irinotecan versus the vehicle control and that genes associated with the immune / stress / inflammatory response and cellular structure were upregulated in the samples treated with irinotecan versus the vehicle. 
+
+### Figure 30. Gene Set Enrichment Analysis Plot for Gene Set Associated with "Cytosolic Ribosome (GO:0022626)"
+![](/Users/sophiahoward/Desktop/angsd/gseaplot cytosolic ribosome.png)
+
+---------
+
+### Figure 31. Gene Set Enrichment Analysis Plot for Gene Set Associated with "Innate Immune Response (GO:004508)"
+![](/Users/sophiahoward/Desktop/angsd/gsea innate immune response.png)
+
+Figures 30 and 31 represent Gene Set Enrichment Analysis plots for the gene sets associated with Cytosolic Ribosome and Innate Immune Response, respectively. The upper panel represents the ranked list of all genes in the gene set. Genes are ranked based on their correlation with the experimental condition. The lower panel represents the running enrichment score, which is a metric that increases when a gene from a gene set is encountered and decreases when a gene from a gene set is not encountered. As such, a peak in the green line indicates where genes from the gene set are most concentrated in the ranked list. In the case of the Cytosolic Ribosome gene set (Figire 30) the peak occurs towards the right, which suggests that genes in this set are generally downregulated in the irinotecan condition. On the other hand, the leftward peak on the running enrichment score panel in Figure 31 suggests that genes in the Innate Immune Response set are generally upregulated in the irinotecan condition. 
+
+Overall, similarly to what was revealed in Figure 29, these plots confirm that genes related to cytosolic ribosomes tend to be downregulated (Figure 30), while genes related to the innate immune response tend to be upregulated (Figure 31) in the irinotecan group compared to the control group.
+
+# DISCUSSION
+
+The objective of the present study was to test inhibition of TOP1 in patient derived xenograft (PDX) models of PDAC to determine whether treatment with irinotecan affects the levels of other genes in the pancreatic cancer cell. Through differential gene expression analysis of RNA-seq samples from PDX models of PDAC treated with irinotecan (TOP1 inhibitor) or a vehicle control, I identified numerous genes that were differnetially expressed between the irinotecan treatment group and the vehicle control (Figures 23-25). Next, over-representation analysis and gene set enrichment analysis revealed that treatment with irinotecan resulted in the downregulation of translation-related genes and upregulation of immune and inflammatory response genes. 
+
+As previously discussed, irinotecan is a camptothecin derivative and thus inhibits topoisomerase I, an enzyme crucial for DNA replication and transcription (Figure 1). In the cell, TOP1 relaxes supercoiled DNA by introducing single-stranded nicks and then reanneals the strand. Irinotecan inhibits TOP1 activity by binding to the TOP1/DNA covalent complex and preventing both the re-ligation of nicked DNA and the dissociation of TOP1 from the DNA (Li et al., 2017). The formation of this complex prevents the replication fork from forming, resulting in DNA double-stranded breaks and subsequent cell death (Li et al., 2017). As such, while TOP1's primary role is not in translation, its inhibition has the potential to stall transcription. Since transcription is the first step in gene expression leading to translation, one could speculate that any hindrance in transcription could reduce the overall mRNA availability for translation and lead to the downregulation of translation-associated genes (Alberts et al. 2002). 
+
+Since it is required for cellular growth and doubling of organelles prior to division, active protein synthesis is known to be a hallmark of cancer cells. In pancreatic cancer specifically, translation initiation factors are commonly upregulated (Shin et al. 2022). As such, another potential explanation for the downregulation of translation-related genes in the experimental group of the present study is that, while the vehicle control group continued to experience active protein synthesis, treatment with irinotecan reduced the presence of this hallmark of cancer cells in the PDAC PDX models. 
+
+In terms of the upregulation of the immune and inflammatory response-related genes, it is likely that the inhibition of topoisomerase I elicited a cellular stress response. It is possible that the cells may have sensed the DNA damage or the pertubation in the normal cellular processes as a form of stress. Since unrepaired DNA can resemble viral genetic material, pancreatic cancer cells may have interpreted the nicked DNA to be viral mimicry, which would make sense given the upregulated "response to virus" and "defense to virus" gene sets seen in Figure 29 (Skalka et al. 2005). 
+
+These findings provide important insight into a pancreatic cancer cell's response to treatment with irinotecan. Despite developments in detection and management, the five-year survival rate of pancreatic cancer has only reached about 11.5% for all stages and 3.1% for metastatic disease (McGuigan et al., 2018; Cameron et al., 2023). As such, more effective and less toxic therapeutics are urgently needed. Irinotecan is currently used to treat PDACs as part of the FOLFIRINOX (fluorouracil, irinotecan, and oxaliplatin) drug cocktail (McGuigan et al., 2018). Understanding the effect of irinotecan-induced TOP1 inhibition on translation-related and inflammatory and immune response-realted pancreatic cell genes can help to further characterize how TOP1-targeted therapies interact with cellular networks and has the potential to identify new therapeutic targets and combination treatment strategies. For instance, the upregulation of immune and inflammatory-related genes could be explored further to understand how an immunotherapy might be incorporated into the treatment regimen. Future research could expand on the present study by adding additional PDAC PDX treatment groups such as a group treated with an immunotherapy such as anti-PD-1 only and a group treated with a combination of anti-PD-1 plus irinotecan. Future work should also look to perform similar analyses with the other CPT derivatives to see how the downstream gene expression differed with different treatments.
+
+#### STUDY LIMITATIONS AND ISSUES ENCOUNTERED
+
+One limitation of this study was the small number of samples. Future research should work to repeat this analysis with a greater number of replicates. Another potential limitation of this study is that only the human reference genome was used to generate the index instead of both the human and mouse genomes. In a patient derived xenograft implanted into a mouse there is a possibility that the samples contain genetic material from both species. As such, it would be best practice to filter out any non-human reads. Due to time constraints, I was not able to consider the mouse and human reference genomes and filter out any non-human reads, but in the future would do so by either running a detailed classifier to partition the reads into human and mouse, and then run alignment only with the human subset (example: Woo et al., 2019) or I would align to a hybrid index (human + mouse) where I first aligned to the hybrid genome, removed any reads mapped to mouse chromosomes, converted the remaining reads back to FASTQ, and finally realigned those to a human-only index (example: Offin, Sauter et al. 2022). 
+
+One issue that I encountered in this project 
+
+---------
+
+# REFERENCES
+
+1. Wall ME, Wani MC, Cook CE, Palmer KH, McPhail AT and Sim GA. Plant Antitumor Agents. I. The Isolation and Structure of Camptothecin, a Novel Alkaloidal Leukemia and Tumor Inhibitor from Camptotheca acuminata1,2. Journal of the American Chemical Society. 1966;88:3888-3890.
+
+2. Li F, Jiang T, Li Q and Ling X. Camptothecin (CPT) and its derivatives are known to target topoisomerase I (Top1) as their mechanism of action: did we miss something in CPT analogue molecular targets for treating human disease such as cancer? Am J Cancer Res. 2017;7:2350-2394.
+
+3. Martino E, Della Volpe S, Terribile E, Benetti E, Sakaj M, Centamore A, Sala A and Collina S. The long story of camptothecin: From traditional medicine to drugs. Bioorganic & Medicinal Chemistry Letters. 2017;27:701-707.
+
+4. Sapra P, Zhao H, Mehlig M, Malaby J, Kraft P, Longley C, Greenberger LM and Horak ID. Novel delivery of SN38 markedly inhibits tumor growth in xenografts, including a camptothecin-11-refractory 
+
+5. Chabot GG. Clinical pharmacokinetics of irinotecan. Clin Pharmacokinet. 1997;33:245-59.
+
+6. Bailly C. Irinotecan: 25 years of cancer treatment. Pharmacological Research. 2019;148:104398.
+
+7. Kacprzak KM. Chemistry and Biology of Camptothecin and its Derivatives. In: K. G. Ramawat and J.-M. Mérillon, eds. Natural Products: Phytochemistry, Botany and Metabolism of Alkaloids, Phenolics and Terpenes Berlin, Heidelberg: Springer Berlin Heidelberg; 2013: 643-682.
+
+8. McGuigan, A., Kelly, P., Turkington, R. C., Jones, C., Coleman, H. G., & McCain, R. S. (2018). Pancreatic cancer: A review of clinical diagnosis, epidemiology, treatment and outcomes. World journal of gastroenterology, 24(43), 4846–4861. https://doi.org/10.3748/wjg.v24.i43.4846
+
+9. Cameron, D. P., Grosser, J., Ladigan, S., Kuzin, V., Iliopoulou, E., Wiegard, A., Benredjem, H., Jackson, K., Liffers, S. T., Lueong, S., Cheung, P. F., Vangala, D., Pohl, M., Viebahn, R., Teschendorf, C., Wolters, H., Usta, S., Geng, K., Kutter, C., Arsenian-Henriksson, M., … Baranello, L. (2023). Coinhibition of topoisomerase 1 and BRD4-mediated pause release selectively kills pancreatic cancer via readthrough transcription. Science advances, 9(41), eadg5109. https://doi.org/10.1126/sciadv.adg5109
+
+10. Alberts B, Johnson A, Lewis J, et al. Molecular Biology of the Cell. 4th edition. New York: Garland Science; 2002. From DNA to RNA. Available from: https://www.ncbi.nlm.nih.gov/books/NBK26887/
+
+11. Shin, S., Solorzano, J., Liauzun, M., Pyronnet, S., Bousquet, C., & Martineau, Y. (2022). Translational alterations in pancreatic cancer: a central role for the integrated stress response. NAR cancer, 4(4), zcac031. https://doi.org/10.1093/narcan/zcac031
+
+12. Skalka, A., Katz, R. Retroviral DNA integration and the DNA damage response. Cell Death Differ 12(Suppl 1), 971–978 (2005). https://doi.org/10.1038/sj.cdd.4401573
+
+
+
+
+
+
+----------
+
+# APPENDIX
+
+![Supplemental Figure 1. Samtools stats: Alignment Scores MultiQC ](/Users/sophiahoward/Desktop/angsd/samtools_alignment_plot.png)
+
+------------
+
+![Supplemental Figure 2. Samtools stats: Alignment Metrics MultiQC Metrics](/Users/sophiahoward/Desktop/angsd/Alignment Metrics MSIV.png)
+
+-------------
+
+![Supplemtal Figure 3. STAR: Alignment Scores MultiQC](/Users/sophiahoward/Desktop/angsd/STAR Alignment Scores MSIV.png)
