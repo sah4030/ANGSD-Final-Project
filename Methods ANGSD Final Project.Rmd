@@ -1,5 +1,6 @@
 ---
-title: "ANGSD Final Project"
+title: "Materials and Methods"
+subtitle: "Irinotecan-Induced TOP1 Inhibition Upregulates Translation-Related Genes and Downregulates Inflammatory and Immune Response-Related Genes in Patient Derived Xenograft Models of Pancreatic Cancer"
 author: "Sophia Howard"
 date: "2024-04-23"
 output:
@@ -470,7 +471,7 @@ exit
 scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/Final/AlignReads/multiqc_report.html ~/Desktop/angsd/Final
 ```
 
-## From Raw Read Counts to Relative Expression Strength Measures: Normalizing Read Counts
+## Raw Read Counts and Differential Gene Expression
 
 ### STEP 1: Running feature counts for paired ends reads
 ```{bash feature counts again, eval=FALSE}
@@ -913,7 +914,7 @@ pcaExplorer::pcaExplorer(dds=dds_Project, dst=dst_rlog)
 ```
 ![](/Users/sophiahoward/Desktop/angsd/genesPca.png)
 
-## Performing differential gene expression analysis
+## Preparing for Over-Representation Analysis and GSEA
 
 ### STEP 1: Preparing for DE
 ```{r preparing for de 1, eval=FALSE}
