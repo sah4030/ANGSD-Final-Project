@@ -394,6 +394,29 @@ Figures 30 and 31 represent Gene Set Enrichment Analysis plots for the gene sets
 
 Overall, similarly to what was revealed in Figure 29, these plots confirm that genes related to cytosolic ribosomes tend to be downregulated (Figure 30), while genes related to the innate immune response tend to be upregulated (Figure 31) in the irinotecan group compared to the control group.
 
+### Table 9. Key Data Sets Generated During the Analyses
+
+| Key Data Set      | Contents                                                                                     |
+|-------------------|----------------------------------------------------------------------------------------------|
+| df_counts_Project | featureCounts result file                                                                    |
+| dds_Project       | DESeq2 object created                                                                        |
+| df_results        | dds_Project corrected for multiple hypothesis testing with independent filtering             |
+| df_results_sorted | df_results sorted by order of adjusted p-value                                               |
+| genes_dge         | genes with the desired adjusted p-value cut-off                                              |
+| rlog_dge          | genes_dge transformed using the regularized log transformation (rlog)                        |
+| df_results_shrunk | dds_Project with shrunken logFC estimates for lowly and noisily expressed genes towards zero |
+| DGE_results       | sorted results of the DESeq2 analysis for GSEA                                               |
+| DGE_genes         | vector of differentially expressed genes for the GO term enrichment analysis                 |
+| gene_list         | list of differentially expressed genes (row names of DGE_results)                            |
+| res_go            | data frame with statistically significant GO terms                                           |
+| res_BP            | most overrepresented GO terms in Biological Processes (BP) ontology                          |
+| res_CC            | most overrepresented GO terms in Cellular Component (CC) ontology                            |
+| res_MF            | most overrepresented GO terms in Molecular Function (MF) ontology                            |
+| gse               | data frame with statistically significant gene sets                                          |
+| gse_BP            | most overrepresented gene sets in Biological Processes (BP) ontology                         |
+| gse_CC            | most overrepresented gene sets in Cellular Components (CC) ontology                          |
+| gse_MF            | most overrepresented gene sets in Molecular Function (MF) ontology                           |
+
 # DISCUSSION
 
 The objective of the present study was to test inhibition of TOP1 in patient derived xenograft (PDX) models of PDAC to determine whether treatment with irinotecan affects the levels of other genes in the pancreatic cancer cell. Through differential gene expression analysis of RNA-seq samples from PDX models of PDAC treated with irinotecan (TOP1 inhibitor) or a vehicle control, I identified numerous genes that were differnetially expressed between the irinotecan treatment group and the vehicle control (Figures 23-25). Next, over-representation analysis and gene set enrichment analysis revealed that treatment with irinotecan resulted in the downregulation of translation-related genes and upregulation of immune and inflammatory response genes. 
@@ -412,7 +435,6 @@ One limitation of this study was the small number of samples. Future research sh
 
 Before this project I had not had any experience with bash, R and RStudio, or the use of remote computing systems. As such I encountered numerous hurdles throughout the process as I was learning the methods. An example of an issue I encountered was that I initially did not understand how to write and execute bash scripts properly. In fact, I tried to run my index generation using a compute node instead of executing a script. As you can imagine, my initial attempt at the index generation did not go very well. However, once I learned how to properly write and execute these scripts I completed the index generation, alignment, and some alignment QC (QoRTs) with ease. Another notable issue that I ran into was selecting the correct gtf annotation file. At first, I ran my entire index generation, alignment, alignment QC, and then generated a feature counts table using the hg38.knownGene.gtf annotation file. Once I had generated the featureCounts table I noticed that the Geneid column of my  output file appeared to consist of varying identifiers -- both Ensembl IDs (ie ENST00000619216.1) and Uniprot IDs (A0A2U3U0J3). To fix this issue, I replaced the hg38.knownGene.gtf file with the Homo_sapiens.GRCh38.111.gtf file and repeated my methods (index generation, alignment, alignment QC, and featureCounts). This new annotation file permitted that I continue with differential gene expression analysis, over-representation analysis, and gene set enrichment analysis. I noticed that my results did not vary drastically, but they did vary and thus I am very glad I made sure to re-run my index generation and alignment steps. One last noteworthy issue I encountered was determining the strandedness of my samples. At first it was quite difficult to determine if my samples were stranded or unstranded. I decided to replace RSeQC with QoRTs QC as, unlike RSeQC, QoRTs is able to determine strandedness. 
 
-### Table 9. Data Sets 
 ---------
 
 # REFERENCES
@@ -442,10 +464,6 @@ Before this project I had not had any experience with bash, R and RStudio, or th
 12. Skalka, A., Katz, R. Retroviral DNA integration and the DNA damage response. Cell Death Differ 12(Suppl 1), 971–978 (2005). https://doi.org/10.1038/sj.cdd.4401573
 
 
-
-
-
-
 ----------
 
 # APPENDIX
@@ -459,3 +477,7 @@ Before this project I had not had any experience with bash, R and RStudio, or th
 -------------
 
 ![Supplemtal Figure 3. STAR: Alignment Scores MultiQC](/Users/sophiahoward/Desktop/angsd/STAR Alignment Scores MSIV.png)
+
+-------------
+
+

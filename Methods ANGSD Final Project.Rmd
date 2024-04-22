@@ -372,14 +372,29 @@ mamba deactivate
 exit
 ```
 
-### STEP 3: Sbatch run of script to complete bamqc 
+### STEP 3: Sbatch run of script to complete BAMQC 
 ```{bash run alignment script chmod, eval=FALSE}
 chmod +x bamqc.sh
 sbatch bamqc.sh
 Submitted batch job 130303
 ```
 
-### STEP 4: Performing alignment QC with QoRTs: 
+### STEP 4: Downloading and reviewing BAMQC output
+```{bash downloading bamqc, eval=FALSE}
+exit
+
+scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/Final/AlignReads/Irinotecan_Rep_1.Aligned.sortedByCoord.out_stats/report.pdf ~/Desktop/angsd/Final
+
+scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/Final/AlignReads/Irinotecan_Rep_2.Aligned.sortedByCoord.out_stats/report.pdf ~/Desktop/angsd/Final
+
+scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/Final/AlignReads/Vehicle_Rep_1.Aligned.sortedByCoord.out_stats/report.pdf ~/Desktop/angsd/Final 
+
+scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/angsd/scratch/sah4030/angsd_homework/Project/Final/AlignReads/Vehicle_Rep_2.Aligned.sortedByCoord.out_stats/report.pdf ~/Desktop/angsd/Final 
+```
+See supplemental materials in Git repository for BAMQC results. 
+
+
+### STEP 5: Performing alignment QC with QoRTs: 
 I ran the following script to perform alignment QC with QoRTs:
 ```{bash qorts script, eval=FALSE}
 #! /bin/bash -l
@@ -432,7 +447,7 @@ sbatch qorts.sh
 ```
 Submitted batch job 130313
 
-### STEP 5: Determining strandedness using QoRTs: 
+### STEP 6: Determining strandedness using QoRTs: 
 ```{bash strandedness, eval=FALSE}
 cat QC.summary.txt
 
@@ -445,7 +460,7 @@ A line in the QC.summary.txt file from the QC_QoRTs_Irinotecan_Rep_1 output read
 
 As such, I determined my samples to be unstranded. I have included the C.summary.txt file from the QC_QoRTs_Irinotecan_Rep_1 output as supplementary information in my Git repository. 
 
-### STEP 5: MultiQC
+### STEP 7: MultiQC
 ```{bash multiqc for everything, eval=FALSE}
 mamba activate multiqc
 multiqc /athena/angsd/scratch/sah4030/angsd_homework/Project/Final
@@ -1175,8 +1190,7 @@ vp1 + vp2
 
 ## Over-representation Analysis and GSEA with clusterProfiler
 
-### STEP 1: Run differential gene expression analysis with DESeq2
-I ran DGE again to prepare data for Over-representation Analysis and GSEA with clusterProfiler
+### STEP 1: Prepare data sets for over-representation Analysis and GSEA
 ```{r perform_dge, eval=FALSE}
 DGE_results <- results(dds_Project,
                        independentFiltering = TRUE,
