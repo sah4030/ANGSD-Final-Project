@@ -232,7 +232,6 @@ chmod +x index_generation.sh
 sbatch index_generation.sh
 ```
 
-as of 04/18 12:19 index gen script is running 
 
 ### STEP 12: Preparing for alignment
 ```{bash prepare_alignment, eval=FALSE}
@@ -447,7 +446,6 @@ exit
 chmod +x qorts.sh
 sbatch qorts.sh
 ```
-Submitted batch job 130313
 
 ### STEP 6: Determining strandedness using QoRTs: 
 ```{bash strandedness, eval=FALSE}
@@ -460,7 +458,7 @@ scp -i ~/.ssh/cacprivatekey.txt sah4030@cayuga-login1.cac.cornell.edu:/athena/an
 
 A line in the QC.summary.txt file from the QC_QoRTs_Irinotecan_Rep_1 output reads: "StrandTest_STRANDEDNESS_MATCHES_INFERRED	0	1 if the strandedness appears to match the strandedness mode, 0 otherwise."
 
-As such, I determined my samples to be unstranded. I have included the C.summary.txt file from the QC_QoRTs_Irinotecan_Rep_1 output as supplementary information in my Git repository. 
+As such, I determined my samples to be unstranded. I have included the QC.summary.txt file from the QC_QoRTs_Irinotecan_Rep_1 output as supplementary information in my Git repository. 
 
 ### STEP 7: MultiQC
 ```{bash multiqc for everything, eval=FALSE}
@@ -554,10 +552,10 @@ head(cts_gene_sample)
 # ENSG00000157911              795              575           454           652
 # ENSG00000260972                0                0             0             0
 ```
-This will be the data that we will store as counts in the assays slot of the DESeq2 object. Now, we turn to the colData, the meta data containing information about the samples (= columns)
+This will be the data that we will store as counts in the assays slot of the DESeq2 object. Now, I work on colData, the meta data containing information about the samples (= columns)
 
 ### STEP 7: DESeq2 object setup: colData
-According to ?colData, this should be a data.frame, where the rows directly match the columns of the count data.
+According to colData, this should be a data.frame, where the rows directly match the columns of the count data.
 ```{r coldata, eval=FALSE}
 # let's use the info from our df_counts object
 df_coldata <- data.frame(condition = gsub("_[0-9]+", "", colnames(cts_gene_sample)), row.names = colnames(cts_gene_sample))
@@ -597,7 +595,7 @@ dds_Project
 # colnames(4): Irinotecan_Rep_1 Irinotecan_Rep_2 Vehicle_Rep_1 Vehicle_Rep_2
 # colData names(1): condition
 ```
-Note that there is an empty rowData slot [rowData names(0)], but this wasn’t mentioned explicitly in the DESeqDataSetFromMatrix documentation. This slot is inherited from the SummarizedExperiment object and would be a reasonable place to store the information about the features (in this case genes) we measured.
+Note that there is an empty rowData slot [rowData names(0)], but this wasn’t mentioned explicitly in the DESeqDataSetFromMatrix documentation. This slot is inherited from the SummarizedExperiment object and would be a reasonable place to store the information about the features (in this case genes) measured.
 
 ### STEP 9: DESeq2 object setup: Adding rowData (genes)
 ```{r Adding rowData, eval=FALSE}
@@ -748,7 +746,6 @@ boxplot(log2(counts(dds_Project, normalized=TRUE) +1), notch=TRUE,
 
 Thus far, I have seen that zeros can mean two things: no expression or no detection and that the read counts cover a fairly large dynamic range. 
 
-
 ### STEP 4: Scatterplot of log normalized counts against each other 
 I want to now create a scatterplot of log normalized counts against each other to see how well the actual values correlate which each other per sample and gene.
 ```{r STEP 18, eval=FALSE}
@@ -836,9 +833,9 @@ Now, we have expression values that have been adjusted for:
 -heteroskedasticity
 -large dynamic range
 
-These values are now more realistic (albeit not perfect) representations of relative expression strengths of genes and they can now be used for exploratory analyses.
+These values are now more realistic representations of relative expression strengths of genes and they can now be used for exploratory analyses.
 
-For DE analyses, we will eventually supply the raw counts, though (because the DE tests will require their own modeling of the gene counts and they need to know the original noise and limitations associated with the raw counts).
+For DE analyses, I will eventually supply the raw counts, though (because the DE tests will require their own modeling of the gene counts and they need to know the original noise and limitations associated with the raw counts).
 
 ### STEP 8: Storing objects on disk to be loaded into future sessions
 ```{r making sure objects are stored, eval=FALSE}
@@ -869,7 +866,7 @@ as.dist(1-corr_coeff, upper=TRUE) %>%
 ```
 
 ![](/Users/sophiahoward/Desktop/angsd/Correlation Heatmap.png)
-Here we observe clear separation of the Vehicle and Irinotecan samples.
+Here I observe clear separation of the Vehicle and Irinotecan samples.
 
 ### STEP 3: Dendrogram
 ```{r DENDROGRAM, eval=FALSE}
@@ -937,7 +934,7 @@ dds_Project$condition
 # Levels: Irinotecan_Rep Vehicle_Rep
 ```
 
-Irinotecan is currently assigned the first level and would thus be used as the baseline expression condition. It usually makes more sense to have the control condition be the baseline, so will reorder the levels of my condition factor.
+Irinotecan is currently assigned the first level and would thus be used as the baseline expression condition. It usually makes more sense to have the control condition be the baseline, so I have reordered the levels of my condition factor.
 
 ### STEP 3: Reorder the levels of condition factor
 ```{r assign control to first level, eval=FALSE}
@@ -1136,7 +1133,7 @@ As you can see, there are more genes found to be differentially expressed as you
 
 A very similar concept is shown with “volcano plots”, although volcano plots typically only focus on the relationship between the (adjusted) p-value and the log2-FC. 
 
-These plots allow you to identify putative genes of interest or check your pre-selected genes of interest and where they fall within the spectrum of DEGs.
+These plots allow one to identify putative genes of interest or check your pre-selected genes of interest and where they fall within the spectrum of DEGs.
 
 
 ### STEP 14: Volcano Plots
@@ -1149,7 +1146,7 @@ vp1 <- EnhancedVolcano(df_results,
                        title="Irinotecan / Vehicle")
 print(vp1)
 ```
-These plots allow you to identify putative genes of interest or check your pre-selected genes of interest and where they fall within the spectrum of DEGs.
+These plots allow one to identify putative genes of interest or check your pre-selected genes of interest and where they fall within the spectrum of DEGs.
 
 ### STEP 15: Shrinking logFC values
 Function that will shrink the logFC estimates for lowly and noisily expressed genes towards zero, therefore reducing their importance for any subsequent downstream analyses. This is particularly important for applications with ranked gene lists such as GSEA.
