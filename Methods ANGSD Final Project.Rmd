@@ -1,7 +1,7 @@
 ---
 title: "Materials and Methods"
 subtitle: "Irinotecan-Induced TOP1 Inhibition Upregulates Translation-Related Genes and Downregulates Inflammatory and Immune Response-Related Genes in Patient Derived Xenograft Models of Pancreatic Cancer"
-author: "Sophia Howard"
+author: "ANGSD Final Project Sophia Howard"
 date: "2024-04-23"
 output:
   prettydoc::html_pretty:
@@ -99,7 +99,7 @@ Irinotecan_Rep_2_2_fastqc.html  Vehicle_Rep_2_2_fastqc.html
 Irinotecan_Rep_2_2_fastqc.zip   Vehicle_Rep_2_2_fastqc.zip
 ```
 
-### STEP 4: Assesing sequencing data quality
+### STEP 4: Assessing sequencing data quality
 ```{bash fastQC view, eval=FALSE}
 exit 
 
@@ -1459,7 +1459,7 @@ print(gse)
 # The Innovation. 2021, 2(3):100141 
 ```
 
-### STEP 8: Explore GSEA Results
+### STEP 9: Explore GSEA Results
 ```{r gsea filtering results for ontology, eval=FALSE}
 #Filtering results for each ontology (BP, CC, and MF)
 gse_BP <- gse[gse$ONTOLOGY == "BP", ]
@@ -1534,7 +1534,7 @@ print(gse_MF[, c("Description", "p.adjust")])
 # GO:0003735 structural constituent of ribosome 2.012676e-05
 ```
 
-### STEP 9: Dot plot of GSEA Results
+### STEP 10: Dot plot of GSEA Results
 Dot plots depict the enrichment scores and gene counts per gene set (for the most significant gene sets).
 ```{r gsea_dotplot, eval=FALSE}
 dotplot(gse, showCategory=10, split=".sign") + facet_grid(.~.sign)
@@ -1542,14 +1542,14 @@ dotplot(gse, showCategory=10, split=".sign") + facet_grid(.~.sign)
 
 ![](/Users/sophiahoward/Desktop/angsd/Dotplot GSEA.png)
 
-### STEP 10: GSEA Plot of Downregulated Gene Set
+### STEP 11: GSEA Plot of Downregulated Gene Set
 ```{r gseaplot again, eval=FALSE}
 gseaplot(gse, by = "all", title = gse$Description[1], geneSetID = 1)
 ```
 
 ![](/Users/sophiahoward/Desktop/angsd/gseaplot cytosolic ribosome.png)
 
-### STEP 11: GSEA Plot of Upregulated Gene Set
+### STEP 12: GSEA Plot of Upregulated Gene Set
 ```{r gseaplot, eval=FALSE}
 gseaplot(gse, by = "all", title = gse$Description[7], geneSetID = 7)
 ```
